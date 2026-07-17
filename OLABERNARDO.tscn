@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://dlthydjfecsch"]
+
+[node name="Node2D" type="Node2D" unique_id=892099553]
+
+[node name="Label" type="Label" parent="." unique_id=1162436105]
+offset_right = 1153.0
+offset_bottom = 647.0
+text = "OLÁ BERNARDO"
+horizontal_alignment = 1
+vertical_alignment = 1
