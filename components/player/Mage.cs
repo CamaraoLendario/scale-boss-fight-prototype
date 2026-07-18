@@ -30,15 +30,33 @@ public partial class Mage : Node3D
 		{
 			Vector3 planarMovementDirection = MovementDirection * new Vector3(1, 0, 1);
 			if (!lookAtGlobalPosition.HasValue) lookAtGlobalPosition = GlobalPosition - planarMovementDirection;
-			else lookAtGlobalPosition = lookAtGlobalPosition.Value.Lerp(GlobalPosition - planarMovementDirection, TurnSpeed * (float)delta);
+			else
+			{
+				float weight = TurnSpeed * (float)delta;
+				lookAtGlobalPosition = new Vector3(
+					Mathf.Lerp(lookAtGlobalPosition.Value.X, GlobalPosition.X - planarMovementDirection.X, weight),
+					GlobalPosition.Y,
+					Mathf.Lerp(lookAtGlobalPosition.Value.Z, GlobalPosition.Z - planarMovementDirection.Z, weight)
+				);
+			}
 			LookAt(lookAtGlobalPosition.Value);
+
+			// GetNode<Node3D>("%Debug").GlobalPosition = lookAtGlobalPosition.Value;
 		}
 
 		if (IsAiming)
 		{
 			Vector3 planarAimingDirection = AimDirection * new Vector3(1, 0, 1);
 			if (!lookAtGlobalPosition.HasValue) lookAtGlobalPosition = GlobalPosition - planarAimingDirection;
-			else lookAtGlobalPosition = lookAtGlobalPosition.Value.Lerp(GlobalPosition - planarAimingDirection, TurnSpeed * (float)delta);
+			else
+			{
+				float weight = TurnSpeed * 4 * (float)delta;
+				lookAtGlobalPosition = new Vector3(
+					Mathf.Lerp(lookAtGlobalPosition.Value.X, GlobalPosition.X - planarAimingDirection.X, weight),
+					GlobalPosition.Y,
+					Mathf.Lerp(lookAtGlobalPosition.Value.Z, GlobalPosition.Z - planarAimingDirection.Z, weight)
+				);
+			}
 			LookAt(lookAtGlobalPosition.Value);
 		}
 

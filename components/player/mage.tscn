@@ -83,6 +83,15 @@ states/rig_med_movement_basic_Jump_Start/position = Vector2(468.8877, 77.74408)
 transitions = ["Start", "moving", SubResource("AnimationNodeStateMachineTransition_ij8v3"), "moving", "rig_med_movement_basic_Jump_Start", SubResource("AnimationNodeStateMachineTransition_inijb"), "rig_med_movement_basic_Jump_Start", "rig_med_movement_basic_Jump_Idle", SubResource("AnimationNodeStateMachineTransition_fqnrr"), "rig_med_movement_basic_Jump_Idle", "rig_med_movement_basic_Jump_Land", SubResource("AnimationNodeStateMachineTransition_kjiar"), "rig_med_movement_basic_Jump_Land", "moving", SubResource("AnimationNodeStateMachineTransition_eqcdr"), "moving", "Fire", SubResource("AnimationNodeStateMachineTransition_kuhc5"), "Fire", "moving", SubResource("AnimationNodeStateMachineTransition_l6jy8")]
 graph_offset = Vector2(-208.31227, -8)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_635nj"]
+shading_mode = 0
+albedo_color = Color(1, 0, 1, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_k1wqa"]
+material = SubResource("StandardMaterial3D_635nj")
+radius = 0.1
+height = 0.2
+
 [node name="Mage" unique_id=398688240 instance=ExtResource("1_mx1pu")]
 script = ExtResource("2_ep02w")
 
@@ -146,3 +155,8 @@ anim_player = NodePath("../AnimationPlayer")
 parameters/conditions/is_floating = false
 parameters/conditions/is_on_floor = true
 parameters/moving/blend_position = 0.0
+
+[node name="Debug" type="MeshInstance3D" parent="." index="3" unique_id=1702134923]
+unique_name_in_owner = true
+visible = false
+mesh = SubResource("SphereMesh_k1wqa")

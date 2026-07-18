@@ -30,6 +30,8 @@ public partial class PlayerController : CharacterBody3D
 	[Export]
 	private Node3D MissileSpawner;
 
+	private float TargetCameraFov = 75;
+
 	private bool _IsAiming;
 	private bool IsAiming
 	{
@@ -42,14 +44,14 @@ public partial class PlayerController : CharacterBody3D
 			if (IsAiming && !value)
 			{
 				Crosshair.Hide();
-				camera.Fov = 75;
+				TargetCameraFov = 75;
 
 			}
 
 			if (!IsAiming && value)
 			{
 				Crosshair.Show();
-				camera.Fov = 40;
+				TargetCameraFov = 40;
 
 			}
 			_IsAiming = value;
@@ -71,8 +73,9 @@ public partial class PlayerController : CharacterBody3D
 		if (IsAiming && Input.IsActionJustPressed("fire"))
 		{
 			mage.Fire();
-
 		}
+
+		camera.Fov = Mathf.Lerp(camera.Fov, TargetCameraFov, (float)delta);
 
 	}
 	public override void _PhysicsProcess(double delta)
