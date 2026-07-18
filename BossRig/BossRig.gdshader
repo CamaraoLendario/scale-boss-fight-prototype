@@ -1,6 +1,11 @@
 shader_type particles;
+
+uniform int particlesAmmount = 300;
+uniform float scale = 10.;
 uniform vec3[21] BonePoss;
 uniform vec3[21] BoneDirs;
+uniform float[21] BoneLens;
+uniform float lenTotal;
 
 vec3 rotateX(vec3 vector, float angle) {
 	float cosine = cos(angle);
@@ -12,24 +17,22 @@ vec3 rotateX(vec3 vector, float angle) {
 		sine * vector.y + cosine * vector.z
 	);
 }
-vec3 rotateY(vec3 v, float a) {
-    float c = cos(a);
-    float s = sin(a);
-
-    return vec3(
-        c * v.x + s * v.z,
-        v.y,
-       -s * v.x + c * v.z
-    );
+vec3 rotateY(vec3 vector, float angle) {
+	float cosine = cos(angle);
+	float sine = sin(angle);
+	return vec3(
+		cosine * vector.x + sine * vector.z,
+		vector.y,
+		-sine * vector.x + cosine * vector.z
+	);
 }
-vec3 rotateZ(vec3 v, float a) {
-    float c = cos(a);
-    float s = sin(a);
-
-    return vec3(
-        c * v.x - s * v.y,
-        s * v.x + c * v.y,
-        v.z
+vec3 rotateZ(vec3 vector, float angle) {
+	float cosine = cos(angle);
+	float sine = sin(angle);
+	return vec3(
+		cosine * vector.x - sine * vector.y,
+		sine * vector.x + cosine * vector.y,
+		vector.z
     );
 }
 vec3 rotateVec3(vec3 vector, float x, float y, float z) {
@@ -38,14 +41,12 @@ vec3 rotateVec3(vec3 vector, float x, float y, float z) {
 	rotateZ(vector, z);
 	return vector;
 }
-
 uint hash(uint x) {
 	x = ((x >> uint(16)) ^ x) * uint(73244475);
 	x = ((x >> uint(16)) ^ x) * uint(73244475);
 	x = (x >> uint(16)) ^ x;
 	return x;
 }
-
 float rand_from_seed(inout uint seed) {
 	int k;
 	int s = int(seed);
@@ -66,18 +67,38 @@ vec3 RotateToBoneDir(vec3 vec, vec3 boneDir){
 	vec = rotateY(vec, atan(nBoneDir.z, nBoneDir.x));
 	return vec;
 }
+
+vec3 GetDebugCilinder(uint idx){
+	return vec3(
+		float(idx)*1.,
+		vec2
+		(sin(float(idx)),
+		cos(float(idx)))*2.5
+	);
+}
 void start() {
-	uint alt_seed = hash(INDEX + uint(1.) + 2495087u);
 }
 
 void process() {
-	uint alt_seed = hash(INDEX + uint(1.) + 2495087u);
+	uint alt_seed = hash(INDEX + uint(1.) + RANDOM_SEED);
 	float randF = rand_from_seed(alt_seed);
-	int index = int(INDEX)%21;
-	//int isUneven = index%2;
+	float fIdx = float(INDEX) / float(particlesAmmount);
+
+	fIdx *= lenTotal;
+	int index = int(fIdx*21.) % 21;
+	float currentLen = 0.;
+	for(int i = 0; i < int(INDEX) ; i++){
+		currentLen += BoneLens[i];
+		if (currentLen > fIdx){
+			index = i;
+			break;
+		}
+	}
+	
+	//int isUneven = index % 2;
 	vec3 BonePos = BonePoss[index];
 	vec3 BoneDir = BoneDirs[index];
-	float boneLen = length(BoneDir);
+	float boneLen = BoneLens[index];
 	//TRANSFORM[3].xyz = BonePos + (BoneDir * ((sin(TIME*5.)*0.5) + .5));
 	//TRANSFORM[3].xyz *= 10.;
 	
@@ -88,14 +109,43 @@ void process() {
 	vec3 pos = vec3(
 		randF,
 		normalize(vec2(
-		cos(PI*2.*fract(randF *587.)),
-		sin(PI*2.*fract(randF *157.))))*0.1
+		cos(PI * 2. * fract(randF * 587.)),
+		sin(PI * 2. * fract(randF * 157.))))*0.1
 	);
 	pos *= boneLen;
 	//pos = vec3((sin(TIME)+1.)/2., 0., 0.);
 	
 	pos = RotateToBoneDir(pos, BoneDir);
 	
-	//TRANSFORM[3].xyz = (BonePos + BoneDir * (sin(TIME*3.)*.5 + .5));
-	TRANSFORM[3].xyz = (BonePos + pos)*10.;
+	TRANSFORM[3].xyz = (BonePos + pos)*scale;
+	//TRANSFORM[3].xyz = (BonePos + BoneDir * (sin(TIME*3.)*.5 + .5))*10.;
+	//TRANSFORM[3].xyz = GetDebugCilinder(INDEX);
+	
+	vec3 angles = vec3(
+		rand_from_seed(alt_seed) * PI * 2.,
+		rand_from_seed(alt_seed) * PI * 2.,
+		rand_from_seed(alt_seed) * PI * 2.
+	);
+	
+	vec2[3] trigs = {
+		vec2(cos(angles.x), sin(angles.x)),
+		vec2(cos(angles.y), sin(angles.y)),
+		vec2(cos(angles.z), sin(angles.z))
+	};
+	
+	TRANSFORM[0].xyz = vec3(
+		trigs[1].x * trigs[2].x,
+		trigs[1].x * trigs[2].y,
+		-trigs[1].y
+	);
+	TRANSFORM[1].xyz = vec3(
+		trigs[0].y * trigs[1].y * trigs[2].x - trigs[0].x * trigs[2].y,
+		trigs[0].y * trigs[1].y * trigs[2].y + trigs[0].x * trigs[2].x,
+		trigs[0].y * trigs[1].x
+	);
+	TRANSFORM[2].xyz = vec3(
+		trigs[0].x * trigs[1].y * trigs[2].x + trigs[0].y * trigs[2].y,
+		trigs[0].x * trigs[1].y * trigs[2].y - trigs[0].y * trigs[2].x,
+		trigs[0].x * trigs[1].x
+	);
 }
