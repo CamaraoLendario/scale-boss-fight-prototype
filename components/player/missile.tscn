@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://dk32h3guobb83"]
+
+[ext_resource type="Script" uid="uid://fuvp2dhu3lx8" path="res://components/player/Missile.cs" id="1_u1kdr"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_635nj"]
+radius = 0.2
+height = 0.4
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_k1wqa"]
+
+[node name="Missile" type="Area3D" unique_id=847656292]
+script = ExtResource("1_u1kdr")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=444365027]
+mesh = SubResource("SphereMesh_635nj")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=236189167]
+shape = SubResource("SphereShape3D_k1wqa")

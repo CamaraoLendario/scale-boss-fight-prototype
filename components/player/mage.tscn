@@ -1,0 +1,148 @@
+[gd_scene format=3 uid="uid://br2eo10t0adnx"]
+
+[ext_resource type="PackedScene" uid="uid://bbfbwkfavxs27" path="res://assets/kenny-mage/Mage.glb" id="1_mx1pu"]
+[ext_resource type="Script" uid="uid://bo5h1bn4sn21f" path="res://components/player/Mage.cs" id="2_ep02w"]
+[ext_resource type="AnimationLibrary" uid="uid://bqlqlhilypsf" path="res://assets/kenny-mage/animation_libs/rig_med_movement_basic.res" id="2_ptq4l"]
+[ext_resource type="AnimationLibrary" uid="uid://bh7nuv3idd2ga" path="res://assets/kenny-mage/animation_libs/rig_med_general.res" id="3_i6pfe"]
+[ext_resource type="PackedScene" uid="uid://dwawq1yqej0yw" path="res://assets/kenny-mage/wand.gltf" id="3_inijb"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_fqnrr"]
+animation = &"Throw"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_xdtg4"]
+animation = &"Idle_A"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_soi6r"]
+animation = &"rig_med_movement_basic/Walking_A"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_gblyx"]
+animation = &"rig_med_movement_basic/Running_A"
+
+[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_fyvah"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_xdtg4")
+blend_point_0/pos = 0.0
+blend_point_0/name = &"Idle_A"
+blend_point_1/node = SubResource("AnimationNodeAnimation_soi6r")
+blend_point_1/pos = 0.5
+blend_point_1/name = &"rig_med_movement_basic_Walking_A"
+blend_point_2/node = SubResource("AnimationNodeAnimation_gblyx")
+blend_point_2/pos = 1.0
+blend_point_2/name = &"rig_med_movement_basic_Running_A"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ep02w"]
+animation = &"rig_med_movement_basic/Jump_Idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_inijb"]
+animation = &"rig_med_movement_basic/Jump_Land"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_i6pfe"]
+animation = &"rig_med_movement_basic/Jump_Start"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ij8v3"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_inijb"]
+xfade_time = 0.1
+advance_mode = 2
+advance_condition = &"is_floating"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_fqnrr"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_kjiar"]
+advance_mode = 2
+advance_condition = &"is_on_floor"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_eqcdr"]
+xfade_time = 0.25
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_kuhc5"]
+xfade_time = 0.1
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_l6jy8"]
+xfade_time = 0.5
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_635nj"]
+states/End/position = Vector2(1093.6, 62.272846)
+states/Fire/node = SubResource("AnimationNodeAnimation_fqnrr")
+states/Fire/position = Vector2(155.28772, 192.8)
+states/Start/position = Vector2(-98.40001, 76.01588)
+states/moving/node = SubResource("AnimationNodeBlendSpace1D_fyvah")
+states/moving/position = Vector2(100.08772, 75.928474)
+states/rig_med_movement_basic_Jump_Idle/node = SubResource("AnimationNodeAnimation_ep02w")
+states/rig_med_movement_basic_Jump_Idle/position = Vector2(850.48773, 77.6686)
+states/rig_med_movement_basic_Jump_Land/node = SubResource("AnimationNodeAnimation_inijb")
+states/rig_med_movement_basic_Jump_Land/position = Vector2(762.4878, 227.20001)
+states/rig_med_movement_basic_Jump_Start/node = SubResource("AnimationNodeAnimation_i6pfe")
+states/rig_med_movement_basic_Jump_Start/position = Vector2(468.8877, 77.74408)
+transitions = ["Start", "moving", SubResource("AnimationNodeStateMachineTransition_ij8v3"), "moving", "rig_med_movement_basic_Jump_Start", SubResource("AnimationNodeStateMachineTransition_inijb"), "rig_med_movement_basic_Jump_Start", "rig_med_movement_basic_Jump_Idle", SubResource("AnimationNodeStateMachineTransition_fqnrr"), "rig_med_movement_basic_Jump_Idle", "rig_med_movement_basic_Jump_Land", SubResource("AnimationNodeStateMachineTransition_kjiar"), "rig_med_movement_basic_Jump_Land", "moving", SubResource("AnimationNodeStateMachineTransition_eqcdr"), "moving", "Fire", SubResource("AnimationNodeStateMachineTransition_kuhc5"), "Fire", "moving", SubResource("AnimationNodeStateMachineTransition_l6jy8")]
+graph_offset = Vector2(-208.31227, -8)
+
+[node name="Mage" unique_id=398688240 instance=ExtResource("1_mx1pu")]
+script = ExtResource("2_ep02w")
+
+[node name="Skeleton3D" parent="Rig_Medium" parent_id_path=PackedInt32Array(159123003) index="0" unique_id=2137776483]
+bones/1/position = Vector3(-2.7163107e-08, 0.39206383, 0.11393035)
+bones/1/rotation = Quaternion(-3.4914132e-09, 0.20774405, 1.2906558e-08, 0.9781832)
+bones/1/scale = Vector3(0.99999994, 1, 0.99999994)
+bones/2/position = Vector3(-0.13073868, 0.11358721, 0.06759231)
+bones/2/rotation = Quaternion(0.95519966, -0.10171639, 0.26246223, 0.091438726)
+bones/2/scale = Vector3(0.9999999, 0.99999976, 1.0000008)
+bones/3/rotation = Quaternion(0.25633022, -6.149029e-08, 1.7381639e-07, 0.96658933)
+bones/4/rotation = Quaternion(-0.5041531, -0.046886604, -0.08670814, 0.85797036)
+bones/5/rotation = Quaternion(2.4607049e-05, 0.92021644, -0.39140978, -5.294974e-06)
+bones/6/rotation = Quaternion(0.20511338, 0.056115545, 0.03562015, 0.9764788)
+bones/6/scale = Vector3(1.0000001, 1, 1.0000001)
+bones/7/rotation = Quaternion(0.06718835, 0.020357769, -0.040150642, 0.99672425)
+bones/7/scale = Vector3(1, 0.9999999, 1)
+bones/8/position = Vector3(0.21170674, 0.13515295, -0.027011018)
+bones/8/rotation = Quaternion(-0.6441963, -0.35067895, -0.5081279, 0.45148808)
+bones/8/scale = Vector3(0.9999991, 0.9999986, 0.9999996)
+bones/9/rotation = Quaternion(8.34291e-08, 2.5994573e-09, -0.5525698, 0.8334667)
+bones/10/rotation = Quaternion(7.250843e-09, 9.200791e-09, 0.026658095, 0.99964464)
+bones/11/rotation = Quaternion(-0.022682853, -0.40264305, 0.26866594, 0.8747473)
+bones/12/position = Vector3(-6.936717e-09, 0.096125185, -0.057500005)
+bones/12/rotation = Quaternion(6.9489685e-09, -3.587743e-09, -0.7071068, 0.7071067)
+bones/13/rotation = Quaternion(-0.04361314, -0.15726574, 0.12607557, 0.9785042)
+bones/13/scale = Vector3(1, 0.99999994, 1)
+bones/14/position = Vector3(-0.21645042, 0.10327995, 0.030299028)
+bones/14/rotation = Quaternion(-0.72398496, 0.5121238, 0.34244376, 0.31033415)
+bones/14/scale = Vector3(0.99999905, 0.9999985, 0.9999996)
+bones/15/rotation = Quaternion(-1.03132e-07, 7.535674e-08, 0.5693997, 0.8220609)
+bones/16/rotation = Quaternion(7.300499e-09, -7.3388096e-09, -0.0266581, 0.99964464)
+bones/17/rotation = Quaternion(-0.0019513795, 0.8216149, 0.013166284, 0.5698876)
+bones/18/position = Vector3(-1.541501e-08, 0.096125126, -0.057499975)
+bones/18/rotation = Quaternion(-0.08643584, -0.27934352, 0.2687685, 0.917747)
+bones/18/scale = Vector3(1, 1.0000001, 1.0000001)
+bones/19/position = Vector3(0.15657905, 0.113587245, -0.004917851)
+bones/19/rotation = Quaternion(0.9513313, -0.0004349221, 0.20340483, 0.23150654)
+bones/19/scale = Vector3(0.9999999, 0.99999976, 1.0000008)
+bones/20/rotation = Quaternion(0.5331954, 6.524156e-08, -3.8052852e-07, 0.8459922)
+bones/21/rotation = Quaternion(-0.44783038, 0.01865969, 0.043774825, 0.89285135)
+bones/22/rotation = Quaternion(-0.00010778282, 0.79417825, -0.607685, 4.1618612e-05)
+bones/22/scale = Vector3(1, 0.9999977, 1.0000024)
+
+[node name="BoneAttachment3D" type="BoneAttachment3D" parent="Rig_Medium/Skeleton3D" index="0" unique_id=206117277]
+transform = Transform3D(-0.027914435, -0.026452601, -0.99925894, -0.86420864, 0.5030155, 0.010826349, 0.5023569, 0.8638712, -0.03690225, -0.27699, 0.94288975, 0.96001685)
+bone_name = "handslot.r"
+bone_idx = 18
+
+[node name="wand2" parent="Rig_Medium/Skeleton3D/BoneAttachment3D" index="0" unique_id=703346139 instance=ExtResource("3_inijb")]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="1" unique_id=534931246]
+libraries/ = ExtResource("3_i6pfe")
+libraries/rig_med_movement_basic = ExtResource("2_ptq4l")
+
+[node name="AnimationTree" type="AnimationTree" parent="." index="2" unique_id=1653894257]
+unique_name_in_owner = true
+root_node = NodePath("%AnimationTree/..")
+tree_root = SubResource("AnimationNodeStateMachine_635nj")
+anim_player = NodePath("../AnimationPlayer")
+parameters/conditions/is_floating = false
+parameters/conditions/is_on_floor = true
+parameters/moving/blend_position = 0.0
