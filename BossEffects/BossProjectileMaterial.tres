@@ -1,0 +1,8 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://cmixu2r3u8dcf"]
+
+[ext_resource type="Shader" uid="uid://dww6jxs2dge6u" path="res://BossEffects/BossProjectileExplosion.gdshader" id="1_3uc20"]
+
+[resource]
+shader = ExtResource("1_3uc20")
+shader_parameter/radius = 1.5
+shader_parameter/exploding = false

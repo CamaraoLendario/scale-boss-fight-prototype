@@ -145,7 +145,7 @@ void process() {
 	
 	pos = RotateToBoneDir(pos, BoneDir);
 	
-	TRANSFORM[3].xyz = (BonePos + pos)*scale;
+	TRANSFORM[3].xyz = (BonePos + pos) * scale;
 	//TRANSFORM[3].xyz = (BonePos + BoneDir * (sin(TIME*3.)*.5 + .5))*10.;
 	//TRANSFORM[3].xyz = GetDebugCilinder(INDEX);
 }
