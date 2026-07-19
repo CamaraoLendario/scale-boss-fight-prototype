@@ -24,9 +24,51 @@ sky = SubResource("Sky_635nj")
 
 [node name="TestLevel" type="Node3D" unique_id=611756775 groups=["MainWorld"]]
 
+[node name="PlayerHealthBar" type="ProgressBar" parent="." unique_id=371950600]
+anchors_preset = -1
+anchor_right = 57.21528
+anchor_bottom = 7.3503084
+offset_right = -65664.0
+offset_bottom = -4736.0
+size_flags_horizontal = 0
+value = 100.0
+rounded = true
+fill_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="PlayerHealthBar" unique_id=994511991]
+layout_mode = 0
+offset_top = 29.0
+offset_right = 40.0
+offset_bottom = 52.0
+text = "Boss Health"
+
+[node name="BossHealthBar" type="ProgressBar" parent="." unique_id=2138017252]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 335.0
+offset_top = 2.0
+offset_right = 575.0
+offset_bottom = 29.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+value = 100.0
+rounded = true
+fill_mode = 1
+
+[node name="Label" type="Label" parent="BossHealthBar" unique_id=789721280]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 31.0
+offset_right = 43.0
+offset_bottom = 54.0
+text = "Player Health"
+
 [node name="Woods" parent="." unique_id=727782633 instance=ExtResource("1_ulhle")]
 
-[node name="Player" parent="." unique_id=1187346506 instance=ExtResource("1_xmk2u")]
+[node name="Player" parent="." unique_id=1187346506 groups=["Player"] instance=ExtResource("1_xmk2u")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -53.399998, 17.8, -12.1)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=347739010]
@@ -60,4 +102,3 @@ player = NodePath("../../../Player")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1561744822]
 stream = ExtResource("10_62re1")
-autoplay = true

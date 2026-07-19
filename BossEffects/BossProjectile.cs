@@ -98,17 +98,18 @@ public partial class BossProjectile : Node3D
 		QueueFree();
 	}
 
-	void CheckHit()
-	{
-		foreach (Node3D body in area3D.GetOverlappingBodies())
-		{
-			if (body.IsInGroup("Player"))
+    void CheckHit()
+    {
+		if (area3D.Monitoring)
+			foreach(Node3D body in area3D.GetOverlappingBodies())
 			{
-				GD.Print("PLAYER HIT!");
-				PrepareForDeletion();
+				if (body.IsInGroup("Player"))
+				{
+					GD.Print("PLAYER HIT!");
+					PrepareForDeletion();
+				}
 			}
-		}
-	}
+    }
 
 	void Reset()
 	{

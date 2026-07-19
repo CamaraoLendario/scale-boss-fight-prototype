@@ -9,10 +9,9 @@ public partial class BossProjectileThrower : Node3D
 	{
 		PackedScene bossProjectileScene = GD.Load<PackedScene>(bossProjectileUID);
 		BossProjectile bossProjectile = bossProjectileScene.Instantiate<BossProjectile>();
-		bossProjectile.GlobalPosition = GlobalPosition;
 
 		GetTree().GetFirstNodeInGroup("MainWorld").CallDeferred(MethodName.AddChild, bossProjectile);
+		bossProjectile.SetDeferred(BossProjectile.PropertyName.Position, GlobalPosition);
 		bossProjectile.CallDeferred(BossProjectile.MethodName.Throw, aimPosition);
-	}
-	
+	}	
 }
