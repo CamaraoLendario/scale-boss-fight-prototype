@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://dk32h3guobb83"]
 
 [ext_resource type="Script" uid="uid://fuvp2dhu3lx8" path="res://components/player/Missile.cs" id="1_u1kdr"]
+[ext_resource type="PackedScene" uid="uid://cgr88dn66r45u" path="res://BossEffects/BossProjectile.tscn" id="2_treyt"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_inijb"]
 friction = 0.1
@@ -22,6 +23,7 @@ can_sleep = false
 contact_monitor = true
 max_contacts_reported = 1
 script = ExtResource("1_u1kdr")
+ParticlesScene = ExtResource("2_treyt")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=444365027]
 mesh = SubResource("SphereMesh_635nj")

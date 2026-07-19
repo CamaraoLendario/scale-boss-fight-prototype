@@ -4,6 +4,8 @@ using Godot;
 public partial class Missile : RigidBody3D
 {
 
+	[Export]
+	public PackedScene ParticlesScene;
 	public const float Force = 40f;
 	public Vector3 Direction;
 	public Vector3 PlayerVelocity;
@@ -25,7 +27,16 @@ public partial class Missile : RigidBody3D
 			GD.Print("Colliding ", body);
 			if (body.IsInGroup("Enemy"))
 			{
+				if (ParticlesScene != null)
+				{
+					BossProjectile instance = ParticlesScene.Instantiate<BossProjectile>();
+					GetParent().AddChild(instance);
+					instance.Scale = Vector3.One * 0.5f;
+					instance.GlobalPosition = GlobalPosition;
+					instance.Explode();
+				}
 				body.Call("take_damage");
+
 				SelfDestruct();
 			}
 		}

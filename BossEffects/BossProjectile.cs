@@ -5,8 +5,8 @@ using System.Diagnostics;
 
 public partial class BossProjectile : Node3D
 {
-	List<GpuParticles3D> particlesNodes = []; 
-    ShaderMaterial material;
+	List<GpuParticles3D> particlesNodes = [];
+	ShaderMaterial material;
 	Area3D area3D;
 	bool IsExploding = false;
 	public override void _Ready()
@@ -15,24 +15,24 @@ public partial class BossProjectile : Node3D
 		material = newMaterial;
 		foreach (Node3D child in GetNode<Node3D>("Particles").GetChildren())
 		{
-			if (child is not GpuParticles3D particles)continue;
+			if (child is not GpuParticles3D particles) continue;
 			particlesNodes.Add(particles);
 			particles.ProcessMaterial = material;
 		}
-		
+
 		area3D = GetNode<Area3D>("Area3D");
 		area3D.BodyEntered += OnCollision;
 		//area3D.AreaEntered += OnCollision;
 	}
 
-    private void OnCollision(Node3D body)
-    {
+	private void OnCollision(Node3D body)
+	{
 		if (!body.IsInGroup("Boss"))
 			Explode();
 
-    }
+	}
 
-    void Throw(Vector3 target)
+	void Throw(Vector3 target)
 	{
 		Tween tween = CreateTween();
 		Vector3 initialPosition = GlobalPosition;
@@ -40,8 +40,9 @@ public partial class BossProjectile : Node3D
 
 		tween.TweenMethod(Callable.From((float tweenedValue) =>
 		{
-			if (!IsExploding){
-				GlobalPosition = initialPosition + travelVec*tweenedValue;
+			if (!IsExploding)
+			{
+				GlobalPosition = initialPosition + travelVec * tweenedValue;
 				GlobalPosition += Vector3.Up * Mathf.Sin(tweenedValue * Mathf.Pi) * 5f;
 			}
 		}), 0f, 1f, 1f/* travelVec.Length()/10f */);
@@ -52,12 +53,12 @@ public partial class BossProjectile : Node3D
 		};
 	}
 
-	void Explode()
+	public void Explode()
 	{
 		if (IsExploding) return;
 
 		IsExploding = true;
-		
+
 		foreach (GpuParticles3D particles in particlesNodes)
 		{
 			particles.OneShot = true;
@@ -65,7 +66,7 @@ public partial class BossProjectile : Node3D
 		}
 
 		material.CallDeferred(ShaderMaterial.MethodName.SetShaderParameter, "exploding", true);
-		
+
 		PrepareForDeletion();
 
 		(area3D.GetChild<CollisionShape3D>(0).Shape as SphereShape3D).Radius = 5f; // default radius is 2.5f
@@ -78,13 +79,13 @@ public partial class BossProjectile : Node3D
 		area3D.SetDeferred(Area3D.PropertyName.Monitoring, false);
 
 		await ToSignal(GetTree().CreateTimer(1.5f), Timer.SignalName.Timeout);
-		
+
 		QueueFree();
 	}
 
-    void CheckHit()
-    {
-		foreach(Node3D body in area3D.GetOverlappingBodies())
+	void CheckHit()
+	{
+		foreach (Node3D body in area3D.GetOverlappingBodies())
 		{
 			if (body.IsInGroup("Player"))
 			{
@@ -92,9 +93,9 @@ public partial class BossProjectile : Node3D
 				PrepareForDeletion();
 			}
 		}
-    }
+	}
 
-    void Reset()
+	void Reset()
 	{
 		foreach (GpuParticles3D particles in particlesNodes)
 		{
