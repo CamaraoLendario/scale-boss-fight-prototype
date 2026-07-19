@@ -1,0 +1,166 @@
+[gd_scene format=3 uid="uid://b0dyrqf66kf2i"]
+
+[ext_resource type="PackedScene" uid="uid://ctnum6eacen74" path="res://assets/kenny-fantasy-town-kit/wall-door.glb" id="1_mhbb3"]
+[ext_resource type="PackedScene" uid="uid://64lcvux1c0yx" path="res://assets/kenny-fantasy-town-kit/wall.glb" id="2_cimsa"]
+[ext_resource type="PackedScene" uid="uid://c68awql6y3jbr" path="res://assets/kenny-fantasy-town-kit/wall-rounded.glb" id="3_bk48n"]
+[ext_resource type="PackedScene" uid="uid://bjrxjrw5r5b7a" path="res://assets/kenny-fantasy-town-kit/wall-window-round.glb" id="4_rxf6x"]
+[ext_resource type="PackedScene" uid="uid://c5c3gt2qeu6su" path="res://assets/kenny-fantasy-town-kit/wall-window-shutters.glb" id="5_wfb6w"]
+[ext_resource type="PackedScene" uid="uid://dx1xdf4dxv2wx" path="res://assets/kenny-fantasy-town-kit/roof-corner-round.glb" id="6_vcmku"]
+[ext_resource type="PackedScene" uid="uid://dsv54tles2v4j" path="res://assets/kenny-fantasy-town-kit/roof-flat.glb" id="7_7itxr"]
+[ext_resource type="PackedScene" uid="uid://b701v4c70nb26" path="res://assets/kenny-fantasy-town-kit/roof-window.glb" id="8_1x2nb"]
+[ext_resource type="PackedScene" uid="uid://cxsej5q2sxaj" path="res://assets/kenny-fantasy-town-kit/roof.glb" id="9_ira66"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_k1wqa"]
+size = Vector3(2.9594727, 2.7520752, 5.9730225)
+
+[node name="BuildingA" type="Node3D" unique_id=1758581348]
+
+[node name="Body" type="Node3D" parent="." unique_id=2055799137]
+
+[node name="wall-door2" parent="Body" unique_id=1998965326 instance=ExtResource("1_mhbb3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1, 0, 0.5)
+
+[node name="wall4" parent="Body" unique_id=1837891940 instance=ExtResource("2_cimsa")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1, 1, 0.5)
+
+[node name="wall3" parent="Body" unique_id=786661940 instance=ExtResource("2_cimsa")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1, 0, 1.5)
+
+[node name="wall5" parent="Body" unique_id=1234835026 instance=ExtResource("2_cimsa")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1, 0, -1.5)
+
+[node name="wall6" parent="Body" unique_id=2060869783 instance=ExtResource("2_cimsa")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1, 1, -1.5)
+
+[node name="wall-rounded2" parent="Body" unique_id=291626611 instance=ExtResource("3_bk48n")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1, 0, 2.5)
+
+[node name="wall-rounded3" parent="Body" unique_id=1937331111 instance=ExtResource("3_bk48n")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1, 1, 2.5)
+
+[node name="wall-rounded4" parent="Body" unique_id=1177947914 instance=ExtResource("3_bk48n")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 1.1, 0, -2.5)
+
+[node name="wall-rounded5" parent="Body" unique_id=557522665 instance=ExtResource("3_bk48n")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 1.1, 1, -2.5)
+
+[node name="wall-window-round2" parent="Body" unique_id=518273098 instance=ExtResource("4_rxf6x")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1, 0, -0.5)
+
+[node name="wall-window-shutters2" parent="Body" unique_id=316248388 instance=ExtResource("5_wfb6w")]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 2, 1, 1.5)
+
+[node name="wall-window-shutters3" parent="Body" unique_id=637502160 instance=ExtResource("5_wfb6w")]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 2, 1, -0.5)
+
+[node name="wall-door3" parent="Body" unique_id=1802455744 instance=ExtResource("1_mhbb3")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -0.9, 0, -0.5)
+
+[node name="wall7" parent="Body" unique_id=1086964766 instance=ExtResource("2_cimsa")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -0.9, 1, -0.5)
+
+[node name="wall8" parent="Body" unique_id=372946926 instance=ExtResource("2_cimsa")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -0.9000002, 0, -1.5)
+
+[node name="wall11" parent="Body" unique_id=2092966397 instance=ExtResource("2_cimsa")]
+transform = Transform3D(1.3113416e-07, 0, -1, 0, 1, 0, 1, 0, 1.3113416e-07, 0.10000008, 0, 2.4999998)
+
+[node name="wall12" parent="Body" unique_id=1558273487 instance=ExtResource("2_cimsa")]
+transform = Transform3D(1.3113416e-07, 0, -1, 0, 1, 0, 1, 0, 1.3113416e-07, 0.10000008, 1, 2.4999998)
+
+[node name="wall13" parent="Body" unique_id=807378406 instance=ExtResource("2_cimsa")]
+transform = Transform3D(-4.371138e-08, 0, 1, 0, 1, 0, -1, 0, -4.371138e-08, 0.10000008, 0, -2.5)
+
+[node name="wall14" parent="Body" unique_id=652778383 instance=ExtResource("2_cimsa")]
+transform = Transform3D(-4.371138e-08, 0, 1, 0, 1, 0, -1, 0, -4.371138e-08, 0.10000008, 1, -2.5)
+
+[node name="wall9" parent="Body" unique_id=974613436 instance=ExtResource("2_cimsa")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -0.89999974, 0, 1.5)
+
+[node name="wall10" parent="Body" unique_id=384831633 instance=ExtResource("2_cimsa")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -0.89999974, 1, 1.5)
+
+[node name="wall-rounded6" parent="Body" unique_id=1728112546 instance=ExtResource("3_bk48n")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -0.9000002, 0, -2.5)
+
+[node name="wall-rounded7" parent="Body" unique_id=1848667944 instance=ExtResource("3_bk48n")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -0.9000002, 1, -2.5)
+
+[node name="wall-rounded8" parent="Body" unique_id=1116053478 instance=ExtResource("3_bk48n")]
+transform = Transform3D(1.3113416e-07, 0, -1, 0, 1, 0, 1, 0, 1.3113416e-07, -0.89999974, 0, 2.5)
+
+[node name="wall-rounded9" parent="Body" unique_id=334922402 instance=ExtResource("3_bk48n")]
+transform = Transform3D(1.3113416e-07, 0, -1, 0, 1, 0, 1, 0, 1.3113416e-07, -0.89999974, 1, 2.5)
+
+[node name="wall-window-round3" parent="Body" unique_id=559405502 instance=ExtResource("4_rxf6x")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -0.9, 0, 0.5)
+
+[node name="wall-window-shutters4" parent="Body" unique_id=1948216835 instance=ExtResource("5_wfb6w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7999998, 1, -1.5)
+
+[node name="wall-window-shutters5" parent="Body" unique_id=604403096 instance=ExtResource("5_wfb6w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7999998, 1, 0.5)
+
+[node name="Roof" type="Node3D" parent="." unique_id=2121364035]
+
+[node name="roof-flat3" parent="Roof" unique_id=874755044 instance=ExtResource("7_7itxr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, 2.6, 1.5)
+
+[node name="roof-flat4" parent="Roof" unique_id=630865899 instance=ExtResource("7_7itxr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, 2.6, 0.5)
+
+[node name="roof-flat5" parent="Roof" unique_id=927633513 instance=ExtResource("7_7itxr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, 2.6, -0.5)
+
+[node name="roof-flat6" parent="Roof" unique_id=1810967618 instance=ExtResource("7_7itxr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, 2.6, -1.5)
+
+[node name="roof-corner-round2" parent="Roof" unique_id=139849478 instance=ExtResource("6_vcmku")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8999999, 2, 2.5)
+
+[node name="roof-corner-round4" parent="Roof" unique_id=1626821065 instance=ExtResource("6_vcmku")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 1.1000001, 2, 2.5)
+
+[node name="roof-flat2" parent="Roof" unique_id=737746431 instance=ExtResource("7_7itxr")]
+
+[node name="roof-window2" parent="Roof" unique_id=818695202 instance=ExtResource("8_1x2nb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9, 2, 1.5)
+
+[node name="roof-window4" parent="Roof" unique_id=1101704207 instance=ExtResource("8_1x2nb")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 1.1, 2, 1.5)
+
+[node name="roof-window6" parent="Roof" unique_id=1565778690 instance=ExtResource("8_1x2nb")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0.100000024, 2, 2.5)
+
+[node name="roof-window7" parent="Roof" unique_id=639467884 instance=ExtResource("8_1x2nb")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0.100000024, 2, -2.5)
+
+[node name="roof3" parent="Roof" unique_id=1699846764 instance=ExtResource("9_ira66")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9, 2, 0.5000001)
+
+[node name="roof5" parent="Roof" unique_id=561876464 instance=ExtResource("9_ira66")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 1.1, 2, 0.5000001)
+
+[node name="roof-corner-round5" parent="Roof" unique_id=27622791 instance=ExtResource("6_vcmku")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -0.9, 2, -2.5)
+
+[node name="roof-window5" parent="Roof" unique_id=1603627338 instance=ExtResource("8_1x2nb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9, 2, -1.5)
+
+[node name="roof6" parent="Roof" unique_id=669640104 instance=ExtResource("9_ira66")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9000001, 2, -0.5)
+
+[node name="roof-corner-round3" parent="Roof" unique_id=2053015494 instance=ExtResource("6_vcmku")]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 1.1000001, 2, -2.5)
+
+[node name="roof-window3" parent="Roof" unique_id=1764288101 instance=ExtResource("8_1x2nb")]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 1.1000001, 2, -1.5)
+
+[node name="roof4" parent="Roof" unique_id=458703773 instance=ExtResource("9_ira66")]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 1.1, 2, -0.5000001)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=222875840]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=2024447989]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.10131836, 1.3701782, 0.013366699)
+shape = SubResource("BoxShape3D_k1wqa")
