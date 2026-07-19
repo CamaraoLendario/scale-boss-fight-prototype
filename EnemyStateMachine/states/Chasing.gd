@@ -27,7 +27,7 @@ func Process(delta: float):
 
 	random_attack_time -= delta
 	if random_attack_time <= 0:
-		random_attack_time = randf_range(1, 3)
+		random_attack_time = randf_range(5, 10)
 		enemy.attack(player.global_position)
 	
 	get_player_position()
