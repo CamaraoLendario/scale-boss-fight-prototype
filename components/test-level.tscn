@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://7fant8t12nc4" path="res://EnemyStateMachine/state_machine.gd" id="7_wer5w"]
 [ext_resource type="Script" uid="uid://v05uayslw0vn" path="res://EnemyStateMachine/states/Idle.gd" id="8_ha7gv"]
 [ext_resource type="Script" uid="uid://cgyyyxts520e3" path="res://EnemyStateMachine/states/Chasing.gd" id="9_u1g2d"]
+[ext_resource type="AudioStream" uid="uid://dvye7nvs7yhhn" path="res://assets/music/MonsterVania - Ghost Land.mp3" id="10_62re1"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_o26jq"]
 sky_top_color = Color(0.4744534, 0.7727523, 0.94340986, 1)
@@ -56,3 +57,7 @@ player = NodePath("../../../Player")
 script = ExtResource("9_u1g2d")
 enemy = NodePath("../..")
 player = NodePath("../../../Player")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1561744822]
+stream = ExtResource("10_62re1")
+autoplay = true

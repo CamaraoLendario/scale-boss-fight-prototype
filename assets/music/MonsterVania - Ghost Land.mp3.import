@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dvye7nvs7yhhn"
+path="res://.godot/imported/MonsterVania - Ghost Land.mp3-88683eb2462bd278e1685de00b12c921.mp3str"
+
+[deps]
+
+source_file="res://assets/music/MonsterVania - Ghost Land.mp3"
+dest_files=["res://.godot/imported/MonsterVania - Ghost Land.mp3-88683eb2462bd278e1685de00b12c921.mp3str"]
+
+[params]
+
+loop=true
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
