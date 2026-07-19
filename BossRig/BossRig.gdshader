@@ -1,10 +1,10 @@
 shader_type particles;
-
+const int BoneCount = 23;
 uniform int particlesAmmount = 300;
 uniform float scale = 10.;
-uniform vec3[21] BonePoss;
-uniform vec3[21] BoneDirs;
-uniform float[21] BoneLens;
+uniform vec3[BoneCount] BonePoss;
+uniform vec3[BoneCount] BoneDirs;
+uniform float[BoneCount] BoneLens;
 uniform float lenTotal;
 
 vec3 rotateX(vec3 vector, float angle) {
@@ -85,7 +85,7 @@ void process() {
 	float fIdx = float(INDEX) / float(particlesAmmount);
 
 	fIdx *= lenTotal;
-	int index = int(fIdx*21.) % 21;
+	int index = int(fIdx*float(BoneCount)) % BoneCount;
 	float currentLen = 0.;
 	for(int i = 0; i < int(INDEX) ; i++){
 		currentLen += BoneLens[i];
