@@ -20,12 +20,12 @@ public partial class BossSkeleton : Skeleton3D
 	}
 	float health;
 	[Export] GpuParticles3D particles3D;
+	[Export] ShaderMaterial material;
 	Vector3[] BonePoss;
 	Vector3[] BoneDirs;
 	float[] BoneLens;
 	float lenTotal = 0f;
 	int boneCount;
-	ShaderMaterial material;
 
     public override void _Ready()
 	{
@@ -33,8 +33,6 @@ public partial class BossSkeleton : Skeleton3D
 		BonePoss = new Vector3[boneCount];
 		BoneDirs = new Vector3[boneCount];
 		BoneLens = new float[boneCount];
-		
-		material = particles3D.ProcessMaterial as ShaderMaterial;
 
 		for(int i = 0; i < boneCount; i++) {
 			int currentBoneIdx = i+2;
