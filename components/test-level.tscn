@@ -1,26 +1,63 @@
 [gd_scene format=3 uid="uid://deuoi6be6siu2"]
 
+[ext_resource type="PackedScene" uid="uid://bn5x15klw8v6c" path="res://components/woods/Woods.tscn" id="1_ulhle"]
 [ext_resource type="PackedScene" uid="uid://k346fsbgfy7e" path="res://components/player/player.tscn" id="1_xmk2u"]
+[ext_resource type="PackedScene" uid="uid://pepkbefnshh0" path="res://BossRig/BossRig.tscn" id="3_1m7ur"]
+[ext_resource type="Script" uid="uid://dktvn5fa68e65" path="res://BossRig/boss.gd" id="4_62re1"]
+[ext_resource type="Material" uid="uid://ba51v5y5rr05l" path="res://assets/shaderMaterial.tres" id="5_wy4ef"]
+[ext_resource type="PackedScene" uid="uid://fb8loq11hujg" path="res://BossEffects/BossProjectileThrower.tscn" id="6_vsqvf"]
+[ext_resource type="Script" uid="uid://7fant8t12nc4" path="res://EnemyStateMachine/state_machine.gd" id="7_wer5w"]
+[ext_resource type="Script" uid="uid://v05uayslw0vn" path="res://EnemyStateMachine/states/Idle.gd" id="8_ha7gv"]
+[ext_resource type="Script" uid="uid://cgyyyxts520e3" path="res://EnemyStateMachine/states/Chasing.gd" id="9_u1g2d"]
+[ext_resource type="AudioStream" uid="uid://dvye7nvs7yhhn" path="res://assets/music/MonsterVania - Ghost Land.mp3" id="10_62re1"]
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_k1wqa"]
-size = Vector2(64, 64)
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_o26jq"]
+sky_top_color = Color(0.4744534, 0.7727523, 0.94340986, 1)
+ground_bottom_color = Color(0.19540963, 0.30926064, 0.20080492, 1)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_k1wqa"]
-size = Vector3(64, 0.1, 64)
+[sub_resource type="Sky" id="Sky_635nj"]
+sky_material = SubResource("ProceduralSkyMaterial_o26jq")
+
+[sub_resource type="Environment" id="Environment_k1wqa"]
+background_mode = 2
+sky = SubResource("Sky_635nj")
 
 [node name="TestLevel" type="Node3D" unique_id=611756775]
 
+[node name="Woods" parent="." unique_id=727782633 instance=ExtResource("1_ulhle")]
+
 [node name="Player" parent="." unique_id=1187346506 instance=ExtResource("1_xmk2u")]
-transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, -0.022226334, 0)
-
-[node name="Ground" type="MeshInstance3D" parent="." unique_id=432039859]
-mesh = SubResource("PlaneMesh_k1wqa")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="Ground" unique_id=347120963]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground/StaticBody3D" unique_id=791472422]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, 0)
-shape = SubResource("BoxShape3D_k1wqa")
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -53.399998, 17.8, -12.1)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=347739010]
 transform = Transform3D(0.8869948, -0.39484674, 0.23944998, 0, 0.5185376, 0.85505486, -0.46177942, -0.75842917, 0.45994014, 0, 0, 0)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=865173277]
+environment = SubResource("Environment_k1wqa")
+
+[node name="Enemy" parent="." unique_id=1392777895 instance=ExtResource("3_1m7ur")]
+transform = Transform3D(-0.9848077, 0, -0.1736483, 0, 1, 0, 0.1736483, 0, -0.9848077, -28.7, 27.300001, 69.700005)
+script = ExtResource("4_62re1")
+material = ExtResource("5_wy4ef")
+
+[node name="BossProjectileThrower" parent="Enemy" unique_id=522592528 instance=ExtResource("6_vsqvf")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 19.879948, 5.7624044)
+
+[node name="StateMachine" type="Node" parent="Enemy" unique_id=2039669144 node_paths=PackedStringArray("initial_state")]
+script = ExtResource("7_wer5w")
+initial_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="Enemy/StateMachine" unique_id=1210962915 node_paths=PackedStringArray("enemy", "player")]
+script = ExtResource("8_ha7gv")
+enemy = NodePath("../..")
+player = NodePath("../../../Player")
+
+[node name="Chasing" type="Node" parent="Enemy/StateMachine" unique_id=1239805204 node_paths=PackedStringArray("enemy", "player")]
+script = ExtResource("9_u1g2d")
+enemy = NodePath("../..")
+player = NodePath("../../../Player")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1561744822]
+stream = ExtResource("10_62re1")
+autoplay = true

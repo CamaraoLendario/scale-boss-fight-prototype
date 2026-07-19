@@ -6,7 +6,7 @@ public partial class MainMenu : Control
 	[Export] Button startButton;
 	[Export] Button settingsButton;
 	[Export] Button quitButton;
-	string mainSceneUID = "uid://pepkbefnshh0";
+	string mainSceneUID = "uid://deuoi6be6siu2";
 
     public override void _Ready()
 	{
