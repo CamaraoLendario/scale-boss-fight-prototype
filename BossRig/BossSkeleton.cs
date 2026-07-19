@@ -19,8 +19,8 @@ public partial class BossSkeleton : Skeleton3D
 		}
 	}
 	float health;
-	[Export] GpuParticles3D particles3D;
-	[Export] ShaderMaterial material;
+	GpuParticles3D particles3D;
+	ShaderMaterial material;
 	Vector3[] BonePoss;
 	Vector3[] BoneDirs;
 	float[] BoneLens;
@@ -33,6 +33,9 @@ public partial class BossSkeleton : Skeleton3D
 		BonePoss = new Vector3[boneCount+2];
 		BoneDirs = new Vector3[boneCount+2];
 		BoneLens = new float[boneCount+2];
+		
+		particles3D = GetChild<GpuParticles3D>(0);
+		material = particles3D.ProcessMaterial as ShaderMaterial;
 
 		for(int i = 0; i < boneCount; i++) {
 			int currentBoneIdx = i+2;
