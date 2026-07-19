@@ -1,0 +1,148 @@
+[gd_scene format=3 uid="uid://br2eo10t0adnx"]
+
+[ext_resource type="PackedScene" uid="uid://bbfbwkfavxs27" path="res://assets/kenny-mage/Mage.glb" id="1_mx1pu"]
+[ext_resource type="Script" uid="uid://bo5h1bn4sn21f" path="res://components/player/Mage.cs" id="2_ep02w"]
+[ext_resource type="AnimationLibrary" uid="uid://bqlqlhilypsf" path="res://assets/kenny-mage/animation_libs/rig_med_movement_basic.res" id="2_ptq4l"]
+[ext_resource type="AnimationLibrary" uid="uid://bh7nuv3idd2ga" path="res://assets/kenny-mage/animation_libs/rig_med_general.res" id="3_i6pfe"]
+[ext_resource type="PackedScene" uid="uid://dwawq1yqej0yw" path="res://assets/kenny-mage/wand.gltf" id="3_inijb"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_fqnrr"]
+animation = &"Throw"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_xdtg4"]
+animation = &"Idle_A"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_soi6r"]
+animation = &"rig_med_movement_basic/Walking_A"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_gblyx"]
+animation = &"rig_med_movement_basic/Running_A"
+
+[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_fyvah"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_xdtg4")
+blend_point_0/pos = 0.0
+blend_point_0/name = &"Idle_A"
+blend_point_1/node = SubResource("AnimationNodeAnimation_soi6r")
+blend_point_1/pos = 0.3
+blend_point_1/name = &"rig_med_movement_basic_Walking_A"
+blend_point_2/node = SubResource("AnimationNodeAnimation_gblyx")
+blend_point_2/pos = 1.0
+blend_point_2/name = &"rig_med_movement_basic_Running_A"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ep02w"]
+animation = &"rig_med_movement_basic/Jump_Idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_inijb"]
+animation = &"rig_med_movement_basic/Jump_Land"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_i6pfe"]
+animation = &"rig_med_movement_basic/Jump_Start"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ij8v3"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_inijb"]
+xfade_time = 0.1
+advance_mode = 2
+advance_condition = &"is_floating"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_fqnrr"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_kjiar"]
+advance_mode = 2
+advance_condition = &"is_on_floor"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_eqcdr"]
+xfade_time = 0.25
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_kuhc5"]
+xfade_time = 0.1
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_l6jy8"]
+xfade_time = 0.5
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_635nj"]
+states/End/position = Vector2(1093.6, 62.272846)
+states/Fire/node = SubResource("AnimationNodeAnimation_fqnrr")
+states/Fire/position = Vector2(155.28772, 192.8)
+states/Start/position = Vector2(-98.40001, 76.01588)
+states/moving/node = SubResource("AnimationNodeBlendSpace1D_fyvah")
+states/moving/position = Vector2(100.08772, 75.9984)
+states/rig_med_movement_basic_Jump_Idle/node = SubResource("AnimationNodeAnimation_ep02w")
+states/rig_med_movement_basic_Jump_Idle/position = Vector2(850.48773, 77.6686)
+states/rig_med_movement_basic_Jump_Land/node = SubResource("AnimationNodeAnimation_inijb")
+states/rig_med_movement_basic_Jump_Land/position = Vector2(762.4878, 227.20001)
+states/rig_med_movement_basic_Jump_Start/node = SubResource("AnimationNodeAnimation_i6pfe")
+states/rig_med_movement_basic_Jump_Start/position = Vector2(468.8877, 77.74408)
+transitions = ["Start", "moving", SubResource("AnimationNodeStateMachineTransition_ij8v3"), "moving", "rig_med_movement_basic_Jump_Start", SubResource("AnimationNodeStateMachineTransition_inijb"), "rig_med_movement_basic_Jump_Start", "rig_med_movement_basic_Jump_Idle", SubResource("AnimationNodeStateMachineTransition_fqnrr"), "rig_med_movement_basic_Jump_Idle", "rig_med_movement_basic_Jump_Land", SubResource("AnimationNodeStateMachineTransition_kjiar"), "rig_med_movement_basic_Jump_Land", "moving", SubResource("AnimationNodeStateMachineTransition_eqcdr"), "moving", "Fire", SubResource("AnimationNodeStateMachineTransition_kuhc5"), "Fire", "moving", SubResource("AnimationNodeStateMachineTransition_l6jy8")]
+graph_offset = Vector2(-208.31227, -8)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_635nj"]
+shading_mode = 0
+albedo_color = Color(1, 0, 1, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_k1wqa"]
+material = SubResource("StandardMaterial3D_635nj")
+radius = 0.1
+height = 0.2
+
+[node name="Mage" unique_id=398688240 instance=ExtResource("1_mx1pu")]
+script = ExtResource("2_ep02w")
+
+[node name="Skeleton3D" parent="Rig_Medium" parent_id_path=PackedInt32Array(159123003) index="0" unique_id=2137776483]
+bones/1/position = Vector3(1.3534625e-18, 0.3777727, 3.226906e-25)
+bones/1/rotation = Quaternion(0.030715436, -1.1915302e-07, 3.6615648e-09, 0.99952817)
+bones/2/position = Vector3(-0.1709451, 0.11306666, 0.035454683)
+bones/2/rotation = Quaternion(0.89010894, 2.6677196e-07, -2.5360482e-08, 0.45574787)
+bones/3/rotation = Quaternion(0.564966, -5.696818e-08, 3.9234922e-07, 0.82511413)
+bones/4/rotation = Quaternion(-0.65270674, 1.8744034e-07, -1.802186e-07, 0.75761074)
+bones/5/rotation = Quaternion(2.7987328e-08, 0.92012644, -0.39162132, 6.698894e-08)
+bones/6/rotation = Quaternion(0.0041597555, 0.00012606483, 0.030290172, 0.99953246)
+bones/7/rotation = Quaternion(-0.0066996096, 0.0009869692, -0.027332949, 0.9996035)
+bones/8/position = Vector3(0.20577012, 0.12842387, -0.011617214)
+bones/8/rotation = Quaternion(-0.6223575, -0.35480314, -0.5840022, 0.3817425)
+bones/9/rotation = Quaternion(2.0902297e-08, -4.6137178e-08, -0.56751466, 0.8233633)
+bones/11/rotation = Quaternion(-0.17596614, -0.48299333, -0.040067542, 0.85682434)
+bones/12/rotation = Quaternion(-0.01489069, 0.014890682, -0.6648534, 0.746677)
+bones/13/rotation = Quaternion(-0.011249133, 0.00039587155, -7.021054e-05, 0.9999367)
+bones/14/position = Vector3(-0.21129832, 0.13119163, -0.013110463)
+bones/14/rotation = Quaternion(-0.6974571, -0.08932086, 0.3758502, 0.6035827)
+bones/15/rotation = Quaternion(4.1642018e-08, 2.9539159e-08, 0.6322146, 0.7747933)
+bones/17/rotation = Quaternion(-0.3480297, 0.2235268, 0.12790199, 0.9014167)
+bones/18/rotation = Quaternion(-0.014890687, -0.014890686, 0.6648534, 0.746677)
+bones/19/position = Vector3(0.17094503, 0.09223848, -0.03545466)
+bones/19/rotation = Quaternion(0.9684384, -1.2033702e-07, -2.7169758e-08, -0.24925312)
+bones/20/rotation = Quaternion(0.28320274, 6.6216195e-08, -1.9667442e-07, 0.9590601)
+bones/21/rotation = Quaternion(-0.6166024, -4.9252247e-08, 1.2479836e-08, 0.7872748)
+bones/22/rotation = Quaternion(2.5118513e-08, 0.9193591, -0.39341947, 6.2149844e-08)
+
+[node name="BoneAttachment3D" type="BoneAttachment3D" parent="Rig_Medium/Skeleton3D" index="0" unique_id=206117277]
+transform = Transform3D(-0.11747514, -0.10550516, -0.9874544, -0.9306653, 0.35863453, 0.07240108, 0.34649673, 0.9274961, -0.14032084, -0.52138245, 0.72346455, -0.076609775)
+bone_name = "handslot.r"
+bone_idx = 18
+
+[node name="wand2" parent="Rig_Medium/Skeleton3D/BoneAttachment3D" index="0" unique_id=703346139 instance=ExtResource("3_inijb")]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="1" unique_id=534931246]
+libraries/ = ExtResource("3_i6pfe")
+libraries/rig_med_movement_basic = ExtResource("2_ptq4l")
+
+[node name="AnimationTree" type="AnimationTree" parent="." index="2" unique_id=1653894257]
+unique_name_in_owner = true
+root_node = NodePath("%AnimationTree/..")
+tree_root = SubResource("AnimationNodeStateMachine_635nj")
+anim_player = NodePath("../AnimationPlayer")
+parameters/conditions/is_floating = false
+parameters/conditions/is_on_floor = true
+parameters/moving/blend_position = 0.48971462
+
+[node name="Debug" type="MeshInstance3D" parent="." index="3" unique_id=1702134923]
+unique_name_in_owner = true
+visible = false
+mesh = SubResource("SphereMesh_k1wqa")
