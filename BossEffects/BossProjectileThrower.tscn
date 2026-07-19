@@ -5,8 +5,3 @@
 [node name="BossProjectileThrower" type="Node3D" unique_id=522592528]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.339198, 0)
 script = ExtResource("1_cwwaw")
-aimPos = Vector3(10, -3, 10)
-
-[node name="Camera3D" type="Camera3D" parent="." unique_id=183061024]
-transform = Transform3D(-0.19857343, 0.253665, -0.9466904, 5.335108e-09, 0.9659259, 0.2588191, 0.980086, 0.051394593, -0.1918072, -16.58862, 6.0343075, 1.9349136)
-fov = 110.0

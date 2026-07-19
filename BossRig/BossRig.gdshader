@@ -160,6 +160,6 @@ void process() {
 		trigs[0].x * trigs[1].x
 	);
 	
-	TRANSFORM[3].xz = RotateVec2(TRANSFORM[3].xz, Yrotation);
-	TRANSFORM[3].xyz += position;
+	//TRANSFORM[3].xz = RotateVec2(TRANSFORM[3].xz, Yrotation);
+	//TRANSFORM[3].xyz += position;
 }

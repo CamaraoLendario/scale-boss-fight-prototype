@@ -29,6 +29,10 @@ project/assembly_name="ScaleBossFightPrototype"
 movie_writer/movie_file="C:/Users/Bernardo/Videos/kenny_scale_gamejam.avi"
 movie_writer/fps=30
 
+[global_group]
+
+Player=""
+
 [input]
 
 PauseGame={

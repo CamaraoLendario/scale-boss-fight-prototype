@@ -1,19 +1,18 @@
 [gd_scene format=3 uid="uid://dncfauqh1sl6"]
 
-[ext_resource type="Script" path="res://state_machine.gd" id="1_7vroo"]
+[ext_resource type="PackedScene" uid="uid://pepkbefnshh0" path="res://BossRig/BossRig.tscn" id="1_l3igh"]
 [ext_resource type="Script" uid="uid://7fant8t12nc4" path="res://EnemyStateMachine/state_machine.gd" id="2_mecyj"]
+[ext_resource type="Script" uid="uid://dktvn5fa68e65" path="res://BossRig/boss.gd" id="2_ua2u8"]
 [ext_resource type="Script" uid="uid://v05uayslw0vn" path="res://EnemyStateMachine/states/Idle.gd" id="3_mecyj"]
-[ext_resource type="Script" uid="uid://c07gaov1j26tb" path="res://player_controller_simplified.gd" id="4_bc2ph"]
+[ext_resource type="Material" uid="uid://ba51v5y5rr05l" path="res://assets/shaderMaterial.tres" id="3_ua2u8"]
+[ext_resource type="PackedScene" uid="uid://fb8loq11hujg" path="res://BossEffects/BossProjectileThrower.tscn" id="4_3nr3k"]
 [ext_resource type="Script" uid="uid://cgyyyxts520e3" path="res://EnemyStateMachine/states/Chasing.gd" id="4_l3igh"]
+[ext_resource type="PackedScene" uid="uid://k346fsbgfy7e" path="res://components/player/player.tscn" id="5_l3igh"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_4fnpq"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_bc2ph"]
 points = PackedVector3Array(1.0158731, 0.015873017, 1.0158731, -1.0158731, -0.015873017, -1.0158731, -1.0158731, 0.015873017, -1.0158731, 1.0158731, -0.015873017, -1.0158731, -1.0158731, -0.015873017, 1.0158731, -1.0158731, 0.015873017, 1.0158731, 1.0158731, 0.015873017, -1.0158731, 1.0158731, -0.015873017, 1.0158731)
-
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_emug2"]
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_q434f"]
 
 [sub_resource type="Environment" id="Environment_mecyj"]
 background_mode = 1
@@ -23,7 +22,6 @@ ambient_light_color = Color(0.7514611, 0.751461, 0.751461, 1)
 reflected_light_source = 1
 
 [node name="Olaines" type="Node3D" unique_id=1283499204]
-script = ExtResource("1_7vroo")
 
 [node name="Floor" type="MeshInstance3D" parent="." unique_id=1779800847]
 transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, 0, 0, 0)
@@ -34,19 +32,14 @@ mesh = SubResource("PlaneMesh_4fnpq")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/StaticBody3D" unique_id=302536082]
 shape = SubResource("ConvexPolygonShape3D_bc2ph")
 
-[node name="Camera3D" type="Camera3D" parent="." unique_id=1231480449]
-transform = Transform3D(0.60870904, 0.6178172, -0.49777028, 0.10288005, 0.56063247, 0.82164896, 0.78669506, -0.5513558, 0.27770096, -3.6290083, 16.788933, 5.3570604)
-rotation_edit_mode = 2
+[node name="Enemy" parent="." unique_id=39094826 instance=ExtResource("1_l3igh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+script = ExtResource("2_ua2u8")
+material = ExtResource("3_ua2u8")
 
-[node name="Enemy" type="CharacterBody3D" parent="." unique_id=1368587776]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.96772075, 0)
-motion_mode = 1
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Enemy" unique_id=591623567]
-shape = SubResource("CapsuleShape3D_emug2")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Enemy" unique_id=84202032]
-mesh = SubResource("CapsuleMesh_q434f")
+[node name="BossProjectileThrower" parent="Enemy" unique_id=522592528 instance=ExtResource("4_3nr3k")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 19.879948, 5.7624044)
 
 [node name="StateMachine" type="Node" parent="Enemy" unique_id=492948540 node_paths=PackedStringArray("initial_state")]
 script = ExtResource("2_mecyj")
@@ -62,19 +55,15 @@ script = ExtResource("4_l3igh")
 enemy = NodePath("../..")
 player = NodePath("../../../Player")
 
-[node name="Player" type="CharacterBody3D" parent="." unique_id=437389893 groups=["Player"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.803165, 1.1286871, 6.64199)
-script = ExtResource("4_bc2ph")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Player" unique_id=2056374694]
-shape = SubResource("CapsuleShape3D_emug2")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Player" unique_id=837944946]
-mesh = SubResource("CapsuleMesh_q434f")
-
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=165945703]
 environment = SubResource("Environment_mecyj")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1497755296]
 transform = Transform3D(-0.0109419525, 0.5399317, -0.8416376, 0.0070189456, 0.8417088, 0.5398862, 0.9999155, 0, -0.012999689, -5.6027117, 4.67194, -0.27821255)
 shadow_enabled = true
+
+[node name="Player" parent="." unique_id=1187346506 groups=["Player"] instance=ExtResource("5_l3igh")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 74.45677)
+MissileScene = null
+
+[node name="Health" type="Node" parent="Player" unique_id=1079842891]

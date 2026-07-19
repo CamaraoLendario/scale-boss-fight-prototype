@@ -38,13 +38,13 @@ public partial class BossProjectile : Node3D
     void Throw(Vector3 target)
 	{
 		Tween tween = CreateTween();
-		Vector3 initialPosition = Position;
+		Vector3 initialPosition = GlobalPosition;
 		Vector3 travelVec = target - initialPosition;
 
 		tween.TweenMethod(Callable.From((float tweenedValue) =>
 		{
-			Position = initialPosition + travelVec*tweenedValue;
-			Position += Vector3.Up * Mathf.Sin(tweenedValue * Mathf.Pi) * 5f;
+			GlobalPosition = initialPosition + travelVec*tweenedValue;
+			GlobalPosition += Vector3.Up * Mathf.Sin(tweenedValue * Mathf.Pi) * 5f;
 		}), 0f, 1f, 1f);
 
 		tween.Finished += () =>

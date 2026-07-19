@@ -3,7 +3,6 @@ using Microsoft.VisualBasic;
 using System;
 using System.Linq;
 
-[Tool]
 public partial class BossSkeleton : Skeleton3D
 {
 	[Export] float Health

@@ -3,7 +3,7 @@ using Godot;
 
 public partial class PlayerController : CharacterBody3D
 {
-	public const float Speed = 5.0f;
+	public const float Speed = 10.0f;
 	public const float Acceleration = 4.0f;
 
 	public float CurrentSpeed = 0f;
