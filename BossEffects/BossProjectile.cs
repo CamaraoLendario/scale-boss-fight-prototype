@@ -9,6 +9,9 @@ public partial class BossProjectile : Node3D
 	ShaderMaterial material;
 	Area3D area3D;
 	bool IsExploding = false;
+
+	[Export]
+	public PackedScene petScene;
 	public override void _Ready()
 	{
 		ShaderMaterial newMaterial = GetNode<Node3D>("Particles").GetChild<GpuParticles3D>(0).ProcessMaterial.Duplicate(true) as ShaderMaterial;
@@ -71,6 +74,18 @@ public partial class BossProjectile : Node3D
 
 		(area3D.GetChild<CollisionShape3D>(0).Shape as SphereShape3D).Radius = 5f; // default radius is 2.5f
 		CallDeferred(BossProjectile.MethodName.CheckHit);
+
+		if (petScene != null)
+		{
+			for (int i = 0; i < 4; i++)
+			{
+				var instance = petScene.Instantiate();
+				GetParent().AddChild(instance);
+				(instance as Node3D).GlobalPosition = GlobalPosition;
+			}
+
+		}
+
 	}
 
 	async void PrepareForDeletion()

@@ -6,7 +6,7 @@
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_k1wqa"]
 
-[node name="Player" type="CharacterBody3D" unique_id=1187346506 node_paths=PackedStringArray("mage", "cameraPivot", "cameraLookAt", "cameraAimLookAt", "cameraAimingOffset", "camera", "Crosshair", "MissileSpawner")]
+[node name="Player" type="CharacterBody3D" unique_id=1187346506 node_paths=PackedStringArray("mage", "cameraPivot", "cameraLookAt", "cameraAimLookAt", "cameraAimingOffset", "camera", "Crosshair", "MissileSpawner") groups=["Player"]]
 script = ExtResource("1_kfe3d")
 mage = NodePath("Mage")
 cameraPivot = NodePath("CameraPivot")

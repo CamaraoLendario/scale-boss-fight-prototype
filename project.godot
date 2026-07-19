@@ -36,6 +36,7 @@ PlayerAttack=""
 Enemy=""
 Boss=""
 MainWorld=""
+Collectible=""
 
 [input]
 

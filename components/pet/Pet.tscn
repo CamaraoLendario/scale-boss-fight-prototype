@@ -1,0 +1,127 @@
+[gd_scene format=3 uid="uid://c4njta78tbg0b"]
+
+[ext_resource type="Script" uid="uid://cfxh11dvd2wi" path="res://components/pet/RandomPetModel.cs" id="1_mt001"]
+[ext_resource type="Script" uid="uid://bk75og0x08541" path="res://components/pet/Pet.cs" id="1_nry45"]
+[ext_resource type="PackedScene" uid="uid://bskag8ge11pyt" path="res://assets/kenny-cube-pets/animal-beaver.glb" id="2_qjilt"]
+[ext_resource type="PackedScene" uid="uid://bh5xx0qft7o1v" path="res://assets/kenny-cube-pets/animal-bee.glb" id="3_wusq8"]
+[ext_resource type="PackedScene" uid="uid://bw2xx8oy8ip4f" path="res://assets/kenny-cube-pets/animal-bunny.glb" id="4_1v18i"]
+[ext_resource type="PackedScene" uid="uid://sgyexm26mxnn" path="res://assets/kenny-cube-pets/animal-cat.glb" id="5_of8ic"]
+[ext_resource type="PackedScene" uid="uid://b0e8mxb5mcaas" path="res://assets/kenny-cube-pets/animal-caterpillar.glb" id="6_8p8te"]
+[ext_resource type="PackedScene" uid="uid://dylwhafgp7kxc" path="res://assets/kenny-cube-pets/animal-chick.glb" id="7_c0673"]
+[ext_resource type="PackedScene" uid="uid://bgeyee1lfaavi" path="res://assets/kenny-cube-pets/animal-cow.glb" id="8_qvd6a"]
+[ext_resource type="PackedScene" uid="uid://dbi7ojm1ngbhl" path="res://assets/kenny-cube-pets/animal-crab.glb" id="9_saaho"]
+[ext_resource type="PackedScene" uid="uid://jjrscd85egvg" path="res://assets/kenny-cube-pets/animal-deer.glb" id="10_rhbnr"]
+[ext_resource type="PackedScene" uid="uid://5liw3muyu2ik" path="res://assets/kenny-cube-pets/animal-dog.glb" id="11_4vgc3"]
+[ext_resource type="PackedScene" uid="uid://b34tc1rye1xny" path="res://assets/kenny-cube-pets/animal-elephant.glb" id="12_1tkmx"]
+[ext_resource type="PackedScene" uid="uid://jfdjqceaqntk" path="res://assets/kenny-cube-pets/animal-fish.glb" id="13_ht2ww"]
+[ext_resource type="PackedScene" uid="uid://bmdj1vdmi305s" path="res://assets/kenny-cube-pets/animal-fox.glb" id="14_w8gqp"]
+[ext_resource type="PackedScene" uid="uid://v3i24r0xgorj" path="res://assets/kenny-cube-pets/animal-giraffe.glb" id="15_ll34f"]
+[ext_resource type="PackedScene" uid="uid://dxc85p5olbq52" path="res://assets/kenny-cube-pets/animal-hog.glb" id="16_n54i0"]
+[ext_resource type="PackedScene" uid="uid://ds7p7gd6fajbq" path="res://assets/kenny-cube-pets/animal-koala.glb" id="17_leoxp"]
+[ext_resource type="PackedScene" uid="uid://cyvxeuy114ahb" path="res://assets/kenny-cube-pets/animal-lion.glb" id="18_cprjy"]
+[ext_resource type="PackedScene" uid="uid://b5qjv5thentb3" path="res://assets/kenny-cube-pets/animal-monkey.glb" id="19_wc65u"]
+[ext_resource type="PackedScene" uid="uid://gng400wubbfh" path="res://assets/kenny-cube-pets/animal-panda.glb" id="20_1i8d4"]
+[ext_resource type="PackedScene" uid="uid://dnh80f674wq8n" path="res://assets/kenny-cube-pets/animal-parrot.glb" id="21_s3ubs"]
+[ext_resource type="PackedScene" uid="uid://bf46yx5485754" path="res://assets/kenny-cube-pets/animal-penguin.glb" id="22_v4h8v"]
+[ext_resource type="PackedScene" uid="uid://b8ggaadn7wwww" path="res://assets/kenny-cube-pets/animal-pig.glb" id="23_uu15a"]
+[ext_resource type="PackedScene" uid="uid://djx4chl6rhvpo" path="res://assets/kenny-cube-pets/animal-polar.glb" id="24_al6wy"]
+[ext_resource type="PackedScene" uid="uid://dg4dp3ws1j5ee" path="res://assets/kenny-cube-pets/animal-tiger.glb" id="25_er8yc"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_k1wqa"]
+bounce = 0.5
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_k1wqa"]
+radius = 1.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_635nj"]
+radius = 3.0
+
+[node name="Pet" type="RigidBody3D" unique_id=298438670]
+physics_material_override = SubResource("PhysicsMaterial_k1wqa")
+script = ExtResource("1_nry45")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1705430312]
+shape = SubResource("SphereShape3D_k1wqa")
+
+[node name="Model" type="Node3D" parent="." unique_id=1013534111]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.8, 0)
+script = ExtResource("1_mt001")
+
+[node name="animal-beaver2" parent="Model" unique_id=1682614171 instance=ExtResource("2_qjilt")]
+visible = false
+
+[node name="animal-bee2" parent="Model" unique_id=511629939 instance=ExtResource("3_wusq8")]
+visible = false
+
+[node name="animal-bunny2" parent="Model" unique_id=2019718703 instance=ExtResource("4_1v18i")]
+visible = false
+
+[node name="animal-cat2" parent="Model" unique_id=1751755942 instance=ExtResource("5_of8ic")]
+visible = false
+
+[node name="animal-caterpillar2" parent="Model" unique_id=973525646 instance=ExtResource("6_8p8te")]
+visible = false
+
+[node name="animal-chick2" parent="Model" unique_id=1200765011 instance=ExtResource("7_c0673")]
+visible = false
+
+[node name="animal-cow2" parent="Model" unique_id=1616979534 instance=ExtResource("8_qvd6a")]
+visible = false
+
+[node name="animal-crab2" parent="Model" unique_id=1153988998 instance=ExtResource("9_saaho")]
+visible = false
+
+[node name="animal-deer2" parent="Model" unique_id=855391561 instance=ExtResource("10_rhbnr")]
+visible = false
+
+[node name="animal-dog2" parent="Model" unique_id=1995081450 instance=ExtResource("11_4vgc3")]
+visible = false
+
+[node name="animal-elephant2" parent="Model" unique_id=1568365092 instance=ExtResource("12_1tkmx")]
+visible = false
+
+[node name="animal-fish2" parent="Model" unique_id=446428684 instance=ExtResource("13_ht2ww")]
+visible = false
+
+[node name="animal-fox2" parent="Model" unique_id=1075026961 instance=ExtResource("14_w8gqp")]
+visible = false
+
+[node name="animal-giraffe2" parent="Model" unique_id=204873371 instance=ExtResource("15_ll34f")]
+visible = false
+
+[node name="animal-hog2" parent="Model" unique_id=2057511208 instance=ExtResource("16_n54i0")]
+visible = false
+
+[node name="animal-koala2" parent="Model" unique_id=208256176 instance=ExtResource("17_leoxp")]
+visible = false
+
+[node name="animal-lion2" parent="Model" unique_id=62288575 instance=ExtResource("18_cprjy")]
+visible = false
+
+[node name="animal-monkey2" parent="Model" unique_id=786274187 instance=ExtResource("19_wc65u")]
+visible = false
+
+[node name="animal-panda2" parent="Model" unique_id=153216254 instance=ExtResource("20_1i8d4")]
+visible = false
+
+[node name="animal-parrot2" parent="Model" unique_id=452285958 instance=ExtResource("21_s3ubs")]
+visible = false
+
+[node name="animal-penguin2" parent="Model" unique_id=2065185898 instance=ExtResource("22_v4h8v")]
+visible = false
+
+[node name="animal-pig2" parent="Model" unique_id=1406495055 instance=ExtResource("23_uu15a")]
+visible = false
+
+[node name="animal-polar2" parent="Model" unique_id=137547396 instance=ExtResource("24_al6wy")]
+visible = false
+
+[node name="animal-tiger2" parent="Model" unique_id=1697726302 instance=ExtResource("25_er8yc")]
+visible = false
+
+[node name="Area3D" type="Area3D" parent="." unique_id=985554446 groups=["Collectible"]]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=157185094]
+shape = SubResource("SphereShape3D_635nj")
+
+[connection signal="body_entered" from="Area3D" to="." method="BodyEntered"]

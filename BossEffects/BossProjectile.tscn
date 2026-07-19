@@ -1,6 +1,7 @@
 [gd_scene format=4 uid="uid://cgr88dn66r45u"]
 
 [ext_resource type="Script" uid="uid://b3d0lt73krc7y" path="res://BossEffects/BossProjectile.cs" id="1_xc21h"]
+[ext_resource type="PackedScene" uid="uid://c4njta78tbg0b" path="res://components/pet/Pet.tscn" id="2_1oibq"]
 [ext_resource type="ArrayMesh" uid="uid://dpqhj4ydi06vc" path="res://penguin-body.tres" id="2_xc21h"]
 [ext_resource type="Shader" uid="uid://dww6jxs2dge6u" path="res://BossEffects/BossProjectileExplosion.gdshader" id="2_xmve0"]
 [ext_resource type="Texture2D" uid="uid://dbfk8pn7b0jp7" path="res://assets/kenny-cube-pets/Textures/colormap.png" id="3_xmve0"]
@@ -136,6 +137,7 @@ radius = 2.5
 
 [node name="BossProjectile" type="Node3D" unique_id=300595802]
 script = ExtResource("1_xc21h")
+petScene = ExtResource("2_1oibq")
 
 [node name="Particles" type="Node3D" parent="." unique_id=666549758]
 
