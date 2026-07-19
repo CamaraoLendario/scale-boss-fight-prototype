@@ -1,11 +1,22 @@
 shader_type particles;
+
 const int BoneCount = 23;
+uniform vec3 position = vec3(0.);
+uniform float Yrotation = 0.;
 uniform int particlesAmmount = 300;
 uniform float scale = 10.;
 uniform vec3[BoneCount] BonePoss;
 uniform vec3[BoneCount] BoneDirs;
 uniform float[BoneCount] BoneLens;
 uniform float lenTotal;
+
+vec2 RotateVec2(vec2 inputVec, float angle){
+	vec2 outputVec;
+	vec2 v1 = vec2(cos(angle), sin(angle));
+	vec2 v2 = vec2(-sin(angle), cos(angle));
+	outputVec = inputVec.x*v1 + inputVec.y*v2;
+	return outputVec;
+}
 
 vec3 rotateX(vec3 vector, float angle) {
 	float cosine = cos(angle);
@@ -148,4 +159,7 @@ void process() {
 		trigs[0].x * trigs[1].y * trigs[2].y - trigs[0].y * trigs[2].x,
 		trigs[0].x * trigs[1].x
 	);
+	
+	TRANSFORM[3].xz = RotateVec2(TRANSFORM[3].xz, Yrotation);
+	TRANSFORM[3].xyz += position;
 }
