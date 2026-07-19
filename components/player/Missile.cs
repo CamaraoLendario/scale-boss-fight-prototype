@@ -1,13 +1,15 @@
 using Godot;
 
-public partial class Missile : Area3D
+public partial class Missile : RigidBody3D
 {
 
-	public const float Speed = 10f;
+	public const float Force = 100f;
 	public Vector3 Direction;
+	public Vector3 PlayerVelocity;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		ApplyCentralImpulse((Direction * Force) + PlayerVelocity);
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -17,7 +19,10 @@ public partial class Missile : Area3D
 
 	public override void _PhysicsProcess(double delta)
 	{
-		Position += Direction * Speed * (float)delta;
 	}
 
+	public void SelfDestruct()
+	{
+		QueueFree();
+	}
 }

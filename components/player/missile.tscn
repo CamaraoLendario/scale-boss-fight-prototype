@@ -2,13 +2,22 @@
 
 [ext_resource type="Script" uid="uid://fuvp2dhu3lx8" path="res://components/player/Missile.cs" id="1_u1kdr"]
 
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_inijb"]
+friction = 0.1
+bounce = 0.5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_u1kdr"]
+shading_mode = 0
+
 [sub_resource type="SphereMesh" id="SphereMesh_635nj"]
+material = SubResource("StandardMaterial3D_u1kdr")
 radius = 0.2
 height = 0.4
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_k1wqa"]
 
-[node name="Missile" type="Area3D" unique_id=847656292]
+[node name="Missile" type="RigidBody3D" unique_id=905704785]
+physics_material_override = SubResource("PhysicsMaterial_inijb")
 script = ExtResource("1_u1kdr")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=444365027]
@@ -16,3 +25,10 @@ mesh = SubResource("SphereMesh_635nj")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=236189167]
 shape = SubResource("SphereShape3D_k1wqa")
+
+[node name="Timer" type="Timer" parent="." unique_id=369587880]
+autostart = true
+
+[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=772106667]
+
+[connection signal="timeout" from="Timer" to="." method="SelfDestruct"]

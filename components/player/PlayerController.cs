@@ -4,6 +4,9 @@ using Godot;
 public partial class PlayerController : CharacterBody3D
 {
 	public const float Speed = 5.0f;
+	public const float Acceleration = 4.0f;
+
+	public float CurrentSpeed = 0f;
 	public const float JumpVelocity = 6f;
 	public const float CameraTurnSpeed = 2f;
 	public Vector3 CameraAimOffset = new Vector3(2f, -3f, -0.75f);
@@ -57,6 +60,12 @@ public partial class PlayerController : CharacterBody3D
 			_IsAiming = value;
 		}
 	}
+
+	public override void _Ready()
+	{
+		Input.MouseMode = Input.MouseModeEnum.Captured;
+	}
+
 	public override void _Input(InputEvent @event)
 	{
 		base._Input(@event);
@@ -98,7 +107,7 @@ public partial class PlayerController : CharacterBody3D
 
 		// Get the input direction and handle the movement/deceleration.
 		// As good practice, you should replace UI actions with custom gameplay actions.
-		Vector2 inputDir = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
+		Vector2 inputDir = Input.GetVector("move_left", "move_right", "move_forward", "move_backward");
 		Vector3 direction = (Transform.Basis * new Vector3(inputDir.X, 0, inputDir.Y)).Normalized();
 
 		var directionCameraTransform = camera.GlobalRotation.Y;
@@ -106,13 +115,16 @@ public partial class PlayerController : CharacterBody3D
 		{
 			direction = -direction.Rotated(Vector3.Up, directionCameraTransform);
 
-			velocity.X = direction.X * Speed * (IsAiming ? 0.5f : 1f);
-			velocity.Z = direction.Z * Speed * (IsAiming ? 0.5f : 1f);
+			CurrentSpeed = Mathf.MoveToward(CurrentSpeed, Speed * (IsAiming ? 0.5f : 1f), Acceleration * (float)delta);
+			velocity.X = direction.X * CurrentSpeed;
+			velocity.Z = direction.Z * CurrentSpeed;
 		}
 		else
 		{
-			velocity.X = Mathf.MoveToward(Velocity.X, 0, Speed);
-			velocity.Z = Mathf.MoveToward(Velocity.Z, 0, Speed);
+			float weight = Acceleration * (float)delta;
+			CurrentSpeed = Mathf.MoveToward(CurrentSpeed, 0f, weight);
+			velocity.X = Mathf.MoveToward(Velocity.X, 0, weight);
+			velocity.Z = Mathf.MoveToward(Velocity.Z, 0, weight);
 		}
 
 		Velocity = velocity;
@@ -154,6 +166,7 @@ public partial class PlayerController : CharacterBody3D
 		Missile instance = MissileScene.Instantiate<Missile>();
 		Vector3 missileDirection = MissileSpawner.GlobalPosition.DirectionTo(cameraAimLookAt.GlobalPosition);
 		instance.Direction = missileDirection;
+		instance.PlayerVelocity = Velocity;
 		GetParent().AddChild(instance);
 		instance.GlobalPosition = MissileSpawner.GlobalPosition;
 	}
