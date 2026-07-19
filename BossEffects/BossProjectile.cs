@@ -1,23 +1,18 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
-[Tool]
 public partial class BossProjectile : Node3D
 {
-    [ExportToolButton("Explode")]
-    public Callable ExplodeButton => Callable.From(Explode);
-
-    [ExportToolButton("Reset")]
-    public Callable ResetButton => Callable.From(Reset);	
-	
 	List<GpuParticles3D> particlesNodes = []; 
     ShaderMaterial material;
 	Area3D area3D;
+	bool IsExploding = false;
 	public override void _Ready()
 	{
-		material = GetNode<Node3D>("Particles").GetChild<GpuParticles3D>(0).ProcessMaterial as ShaderMaterial;
-		material = material.DuplicateDeep() as ShaderMaterial;
+		ShaderMaterial newMaterial = GetNode<Node3D>("Particles").GetChild<GpuParticles3D>(0).ProcessMaterial.Duplicate(true) as ShaderMaterial;
+		material = newMaterial;
 		foreach (Node3D child in GetNode<Node3D>("Particles").GetChildren())
 		{
 			if (child is not GpuParticles3D particles)continue;
@@ -27,12 +22,14 @@ public partial class BossProjectile : Node3D
 		
 		area3D = GetNode<Area3D>("Area3D");
 		area3D.BodyEntered += OnCollision;
-		area3D.AreaEntered += OnCollision;
+		//area3D.AreaEntered += OnCollision;
 	}
 
     private void OnCollision(Node3D body)
     {
-        Explode();
+		if (!body.IsInGroup("Boss"))
+			Explode();
+
     }
 
     void Throw(Vector3 target)
@@ -43,9 +40,11 @@ public partial class BossProjectile : Node3D
 
 		tween.TweenMethod(Callable.From((float tweenedValue) =>
 		{
-			GlobalPosition = initialPosition + travelVec*tweenedValue;
-			GlobalPosition += Vector3.Up * Mathf.Sin(tweenedValue * Mathf.Pi) * 5f;
-		}), 0f, 1f, 1f);
+			if (!IsExploding){
+				GlobalPosition = initialPosition + travelVec*tweenedValue;
+				GlobalPosition += Vector3.Up * Mathf.Sin(tweenedValue * Mathf.Pi) * 5f;
+			}
+		}), 0f, 1f, 1f/* travelVec.Length()/10f */);
 
 		tween.Finished += () =>
 		{
@@ -55,6 +54,10 @@ public partial class BossProjectile : Node3D
 
 	void Explode()
 	{
+		if (IsExploding) return;
+
+		IsExploding = true;
+		
 		foreach (GpuParticles3D particles in particlesNodes)
 		{
 			particles.OneShot = true;
@@ -62,13 +65,21 @@ public partial class BossProjectile : Node3D
 		}
 
 		material.CallDeferred(ShaderMaterial.MethodName.SetShaderParameter, "exploding", true);
-		if (!Engine.IsEditorHint())
-		{
-			GetChild<GpuParticles3D>(0).Finished += QueueFree;
-		}
+		
+		PrepareForDeletion();
 
-		(area3D.GetChild<CollisionShape3D>(0).Shape as SphereShape3D).Radius *= 5f;
+		(area3D.GetChild<CollisionShape3D>(0).Shape as SphereShape3D).Radius = 5f; // default radius is 2.5f
 		CallDeferred(BossProjectile.MethodName.CheckHit);
+	}
+
+	async void PrepareForDeletion()
+	{
+		area3D.SetDeferred(Area3D.PropertyName.Monitorable, false);
+		area3D.SetDeferred(Area3D.PropertyName.Monitoring, false);
+
+		await ToSignal(GetTree().CreateTimer(1.5f), Timer.SignalName.Timeout);
+		
+		QueueFree();
 	}
 
     void CheckHit()
@@ -78,6 +89,7 @@ public partial class BossProjectile : Node3D
 			if (body.IsInGroup("Player"))
 			{
 				GD.Print("PLAYER HIT!");
+				PrepareForDeletion();
 			}
 		}
     }

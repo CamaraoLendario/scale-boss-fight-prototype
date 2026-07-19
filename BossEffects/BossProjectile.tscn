@@ -1,9 +1,15 @@
 [gd_scene format=4 uid="uid://cgr88dn66r45u"]
 
-[ext_resource type="Material" uid="uid://cmixu2r3u8dcf" path="res://BossEffects/BossProjectileMaterial.tres" id="1_vxl80"]
 [ext_resource type="Script" uid="uid://b3d0lt73krc7y" path="res://BossEffects/BossProjectile.cs" id="1_xc21h"]
 [ext_resource type="ArrayMesh" uid="uid://dpqhj4ydi06vc" path="res://penguin-body.tres" id="2_xc21h"]
+[ext_resource type="Shader" uid="uid://dww6jxs2dge6u" path="res://BossEffects/BossProjectileExplosion.gdshader" id="2_xmve0"]
 [ext_resource type="Texture2D" uid="uid://dbfk8pn7b0jp7" path="res://assets/kenny-cube-pets/Textures/colormap.png" id="3_xmve0"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1oibq"]
+resource_local_to_scene = true
+shader = ExtResource("2_xmve0")
+shader_parameter/radius = 1.5
+shader_parameter/exploding = false
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uuwia"]
 resource_name = "colormap"
@@ -140,7 +146,7 @@ explosiveness = 1.0
 fixed_fps = 60
 visibility_aabb = AABB(-1000, -1000, -1000, 2000, 2000, 2000)
 local_coords = true
-process_material = ExtResource("1_vxl80")
+process_material = SubResource("ShaderMaterial_1oibq")
 draw_pass_1 = ExtResource("2_xc21h")
 
 [node name="SphericalExplosionCaterpillars" type="GPUParticles3D" parent="Particles" unique_id=660443806]
@@ -150,7 +156,7 @@ explosiveness = 1.0
 fixed_fps = 60
 visibility_aabb = AABB(-1000, -1000, -1000, 2000, 2000, 2000)
 local_coords = true
-process_material = ExtResource("1_vxl80")
+process_material = SubResource("ShaderMaterial_1oibq")
 draw_pass_1 = SubResource("ArrayMesh_1oibq")
 
 [node name="SphericalExplosionPigs" type="GPUParticles3D" parent="Particles" unique_id=516678213]
@@ -160,7 +166,7 @@ explosiveness = 1.0
 fixed_fps = 60
 visibility_aabb = AABB(-1000, -1000, -1000, 2000, 2000, 2000)
 local_coords = true
-process_material = ExtResource("1_vxl80")
+process_material = SubResource("ShaderMaterial_1oibq")
 draw_pass_1 = SubResource("ArrayMesh_gl3p5")
 
 [node name="SphericalExplosionParrots" type="GPUParticles3D" parent="Particles" unique_id=1698984465]
@@ -170,7 +176,7 @@ explosiveness = 1.0
 fixed_fps = 60
 visibility_aabb = AABB(-1000, -1000, -1000, 2000, 2000, 2000)
 local_coords = true
-process_material = ExtResource("1_vxl80")
+process_material = SubResource("ShaderMaterial_1oibq")
 draw_pass_1 = SubResource("ArrayMesh_svjmx")
 
 [node name="Area3D" type="Area3D" parent="." unique_id=1236303000]

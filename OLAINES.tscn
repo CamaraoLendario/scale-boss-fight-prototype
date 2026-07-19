@@ -21,7 +21,7 @@ ambient_light_source = 2
 ambient_light_color = Color(0.7514611, 0.751461, 0.751461, 1)
 reflected_light_source = 1
 
-[node name="Olaines" type="Node3D" unique_id=1283499204]
+[node name="Olaines" type="Node3D" unique_id=1283499204 groups=["MainWorld"]]
 
 [node name="Floor" type="MeshInstance3D" parent="." unique_id=1779800847]
 transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, 0, 0, 0)
@@ -32,7 +32,7 @@ mesh = SubResource("PlaneMesh_4fnpq")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/StaticBody3D" unique_id=302536082]
 shape = SubResource("ConvexPolygonShape3D_bc2ph")
 
-[node name="Enemy" parent="." unique_id=39094826 instance=ExtResource("1_l3igh")]
+[node name="Enemy" parent="." unique_id=39094826 groups=["Boss"] instance=ExtResource("1_l3igh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 script = ExtResource("2_ua2u8")
 material = ExtResource("3_ua2u8")

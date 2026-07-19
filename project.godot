@@ -32,6 +32,8 @@ movie_writer/fps=30
 [global_group]
 
 Player=""
+Boss=""
+MainWorld=""
 
 [input]
 

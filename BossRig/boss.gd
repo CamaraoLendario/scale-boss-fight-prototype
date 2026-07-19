@@ -12,10 +12,9 @@ func _ready() -> void:
 func take_damage():
 	current_health -= 1
 
-
-func attack():
+func attack(pos: Vector3):
 	animation_tree.set("parameters/OneShot/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
-	%BossProjectileThrower.ThrowNewProjectile()
+	%BossProjectileThrower.ThrowNewProjectile(pos)
 	print("attacking")
 
 func move():
