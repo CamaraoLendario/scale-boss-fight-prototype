@@ -77,6 +77,34 @@ vec3 GetDebugCilinder(uint idx){
 	);
 }
 void start() {
+	uint alt_seed = hash(INDEX + uint(1.) + RANDOM_SEED);
+	vec3 angles = vec3(
+		rand_from_seed(alt_seed) * PI * 2.,
+		rand_from_seed(alt_seed) * PI * 2.,
+		rand_from_seed(alt_seed) * PI * 2.
+	);
+	
+	vec2[3] trigs = {
+		vec2(cos(angles.x), sin(angles.x)),
+		vec2(cos(angles.y), sin(angles.y)),
+		vec2(cos(angles.z), sin(angles.z))
+	};
+	
+	TRANSFORM[0].xyz = vec3(
+		trigs[1].x * trigs[2].x,
+		trigs[1].x * trigs[2].y,
+		-trigs[1].y
+	);
+	TRANSFORM[1].xyz = vec3(
+		trigs[0].y * trigs[1].y * trigs[2].x - trigs[0].x * trigs[2].y,
+		trigs[0].y * trigs[1].y * trigs[2].y + trigs[0].x * trigs[2].x,
+		trigs[0].y * trigs[1].x
+	);
+	TRANSFORM[2].xyz = vec3(
+		trigs[0].x * trigs[1].y * trigs[2].x + trigs[0].y * trigs[2].y,
+		trigs[0].x * trigs[1].y * trigs[2].y - trigs[0].y * trigs[2].x,
+		trigs[0].x * trigs[1].x
+	);
 }
 
 void process() {
@@ -120,32 +148,4 @@ void process() {
 	TRANSFORM[3].xyz = (BonePos + pos)*scale;
 	//TRANSFORM[3].xyz = (BonePos + BoneDir * (sin(TIME*3.)*.5 + .5))*10.;
 	//TRANSFORM[3].xyz = GetDebugCilinder(INDEX);
-	
-	vec3 angles = vec3(
-		rand_from_seed(alt_seed) * PI * 2.,
-		rand_from_seed(alt_seed) * PI * 2.,
-		rand_from_seed(alt_seed) * PI * 2.
-	);
-	
-	vec2[3] trigs = {
-		vec2(cos(angles.x), sin(angles.x)),
-		vec2(cos(angles.y), sin(angles.y)),
-		vec2(cos(angles.z), sin(angles.z))
-	};
-	
-	TRANSFORM[0].xyz = vec3(
-		trigs[1].x * trigs[2].x,
-		trigs[1].x * trigs[2].y,
-		-trigs[1].y
-	);
-	TRANSFORM[1].xyz = vec3(
-		trigs[0].y * trigs[1].y * trigs[2].x - trigs[0].x * trigs[2].y,
-		trigs[0].y * trigs[1].y * trigs[2].y + trigs[0].x * trigs[2].x,
-		trigs[0].y * trigs[1].x
-	);
-	TRANSFORM[2].xyz = vec3(
-		trigs[0].x * trigs[1].y * trigs[2].x + trigs[0].y * trigs[2].y,
-		trigs[0].x * trigs[1].y * trigs[2].y - trigs[0].y * trigs[2].x,
-		trigs[0].x * trigs[1].x
-	);
 }

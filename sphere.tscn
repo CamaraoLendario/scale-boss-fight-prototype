@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://d4icw1x2moj4q"]
+
+[ext_resource type="Shader" uid="uid://dww6jxs2dge6u" path="res://projectileBall.gdshader" id="1_veubm"]
+[ext_resource type="ArrayMesh" uid="uid://dpqhj4ydi06vc" path="res://penguin-body.tres" id="2_udds0"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ulq3i"]
+shader = ExtResource("1_veubm")
+shader_parameter/radius = 3.0
+
+[node name="Node3D" type="Node3D" unique_id=410073825]
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="." unique_id=2091468516]
+amount = 577
+explosiveness = 1.0
+fixed_fps = 60
+visibility_aabb = AABB(-1000, -1000, -1000, 2000, 2000, 2000)
+process_material = SubResource("ShaderMaterial_ulq3i")
+draw_pass_1 = ExtResource("2_udds0")
