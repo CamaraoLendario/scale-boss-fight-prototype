@@ -13,6 +13,7 @@ public partial class BossProjectile : Node3D
 	
 	List<GpuParticles3D> particlesNodes = []; 
     ShaderMaterial material;
+	Area3D area3D;
 	public override void _Ready()
 	{
 		material = GetNode<Node3D>("Particles").GetChild<GpuParticles3D>(0).ProcessMaterial as ShaderMaterial;
@@ -23,9 +24,18 @@ public partial class BossProjectile : Node3D
 			particlesNodes.Add(particles);
 			particles.ProcessMaterial = material;
 		}
+		
+		area3D = GetNode<Area3D>("Area3D");
+		area3D.BodyEntered += OnCollision;
+		area3D.AreaEntered += OnCollision;
 	}
 
-	void Throw(Vector3 target)
+    private void OnCollision(Node3D body)
+    {
+        Explode();
+    }
+
+    void Throw(Vector3 target)
 	{
 		Tween tween = CreateTween();
 		Vector3 initialPosition = Position;
@@ -56,9 +66,23 @@ public partial class BossProjectile : Node3D
 		{
 			GetChild<GpuParticles3D>(0).Finished += QueueFree;
 		}
+
+		(area3D.GetChild<CollisionShape3D>(0).Shape as SphereShape3D).Radius *= 5f;
+		CallDeferred(BossProjectile.MethodName.CheckHit);
 	}
 
-	void Reset()
+    void CheckHit()
+    {
+		foreach(Node3D body in area3D.GetOverlappingBodies())
+		{
+			if (body.IsInGroup("Player"))
+			{
+				GD.Print("PLAYER HIT!");
+			}
+		}
+    }
+
+    void Reset()
 	{
 		foreach (GpuParticles3D particles in particlesNodes)
 		{

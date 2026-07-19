@@ -11,6 +11,7 @@ public partial class BossProjectileThrower : Node3D
 		if (!@event.IsReleased() &&  @event is not InputEventMouseMotion)
 			ThrowNewProjectile();
     }
+
 	void ThrowNewProjectile(Vector3 aimPosition)
 	{
 		PackedScene bossProjectileScene = GD.Load<PackedScene>(bossProjectileUID);
@@ -19,6 +20,7 @@ public partial class BossProjectileThrower : Node3D
 		CallDeferred(MethodName.AddChild, bossProjectile);
 		bossProjectile.CallDeferred(BossProjectile.MethodName.Throw, aimPosition);
 	}
+	
 	void ThrowNewProjectile()
 	{
 		PackedScene bossProjectileScene = GD.Load<PackedScene>(bossProjectileUID);
