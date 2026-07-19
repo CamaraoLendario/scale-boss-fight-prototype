@@ -16,9 +16,9 @@ func Exit():
 func get_player_position():
 	move_direction = enemy.global_position - player.global_position
 
-func Process(delta: float):    
-	print("processing chasing state")    
-	enemy.velocity = -move_direction * move_speed * delta
+func Process(delta: float):
+	# print("processing chasing state")    
+	enemy.velocity = - move_direction * move_speed * delta
 	enemy.look_at(Vector3(move_direction.x, 0, move_direction.z), Vector3.UP)
 	enemy.move()
 
