@@ -1,0 +1,66 @@
+[gd_scene format=3 uid="uid://k346fsbgfy7e"]
+
+[ext_resource type="Script" uid="uid://bqt63uwsfywl7" path="res://components/player/PlayerController.cs" id="1_kfe3d"]
+[ext_resource type="PackedScene" uid="uid://br2eo10t0adnx" path="res://components/player/mage.tscn" id="2_ph1f6"]
+[ext_resource type="PackedScene" uid="uid://dk32h3guobb83" path="res://components/player/missile.tscn" id="2_wa6cj"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_k1wqa"]
+
+[node name="Player" type="CharacterBody3D" unique_id=1187346506 node_paths=PackedStringArray("mage", "cameraPivot", "cameraLookAt", "cameraAimLookAt", "cameraAimingOffset", "camera", "Crosshair", "MissileSpawner")]
+script = ExtResource("1_kfe3d")
+mage = NodePath("Mage")
+cameraPivot = NodePath("CameraPivot")
+cameraLookAt = NodePath("CameraPivot/CameraLookAt")
+cameraAimLookAt = NodePath("CameraPivot/AimingLookAt")
+cameraAimingOffset = NodePath("CameraPivot/AimingOffset")
+camera = NodePath("CameraPivot/AimingOffset/Camera3D")
+Crosshair = NodePath("Crosshair")
+MissileScene = ExtResource("2_wa6cj")
+MissileSpawner = NodePath("Mage/MissileSpawner")
+
+[node name="Mage" parent="." unique_id=398688240 instance=ExtResource("2_ph1f6")]
+unique_name_in_owner = true
+transform = Transform3D(-1, 0, 1.509958e-07, 0, 1, 0, -1.509958e-07, 0, -1, 0, 0, 0)
+
+[node name="MissileSpawner" type="Node3D" parent="Mage" unique_id=483289834]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 1.25, 2)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=990666708]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_k1wqa")
+
+[node name="CameraPivot" type="Node3D" parent="." unique_id=1356731716]
+unique_name_in_owner = true
+
+[node name="CameraLookAt" type="Node3D" parent="CameraPivot" unique_id=689473922]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, -1)
+
+[node name="AimingLookAt" type="Node3D" parent="CameraPivot" unique_id=1574604174]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -16)
+
+[node name="AimingOffset" type="Node3D" parent="CameraPivot" unique_id=1266800912]
+
+[node name="Camera3D" type="Camera3D" parent="CameraPivot/AimingOffset" unique_id=1236780856]
+unique_name_in_owner = true
+transform = Transform3D(1, 2.1743256e-08, -5.97391e-08, 0, 0.9396926, 0.34202015, 6.3573026e-08, -0.34202015, 0.9396926, -6.93791e-07, 4.9977593, 4.993842)
+
+[node name="Crosshair" type="ColorRect" parent="." unique_id=575039297]
+visible = false
+custom_minimum_size = Vector2(5, 5)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -2.5
+offset_top = -2.5
+offset_right = 2.5
+offset_bottom = 2.5
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset_ratio = Vector2(0.5, 0.5)
+size_flags_horizontal = 4
+size_flags_vertical = 4
+color = Color(1, 0, 0, 1)
+
+[connection signal="IsShootingMissile" from="Mage" to="." method="ShootMissile"]
