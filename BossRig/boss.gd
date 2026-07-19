@@ -9,7 +9,7 @@ func _ready() -> void:
 	animation_tree = get_node("Rig_Large_MovementBasic/AnimationTree")
 
 func take_damage():
-	current_health -= 1
+	current_health -= 5
 	animation_tree.set("parameters/hit/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
 	%Skeleton3D.SetHealth(current_health as float / MAX_HEALTH as float)
 	print("Current health: ", current_health)

@@ -28,7 +28,7 @@ func Process(delta: float):
 		get_random_direction()
 
 	var distance_to_player = player.global_position - enemy.global_position
-	if (distance_to_player.length() < 40):
+	if (distance_to_player.length() < 80):
 		# print("close to enemy: CHASING")
 		transition_state.emit("Idle", "Chasing")
 

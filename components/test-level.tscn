@@ -22,7 +22,7 @@ sky_material = SubResource("ProceduralSkyMaterial_o26jq")
 background_mode = 2
 sky = SubResource("Sky_635nj")
 
-[node name="TestLevel" type="Node3D" unique_id=611756775]
+[node name="TestLevel" type="Node3D" unique_id=611756775 groups=["MainWorld"]]
 
 [node name="Woods" parent="." unique_id=727782633 instance=ExtResource("1_ulhle")]
 

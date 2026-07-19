@@ -22,7 +22,7 @@ func Process(delta: float):
 	enemy.look_at(Vector3(move_direction.x, 0, move_direction.z), Vector3.UP)
 	enemy.move()
 
-	if move_direction.length() > 40:
+	if move_direction.length() > 80:
 		transition_state.emit("Chasing", "Idle")
 
 	random_attack_time -= delta
