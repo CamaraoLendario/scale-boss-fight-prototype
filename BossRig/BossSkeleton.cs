@@ -15,7 +15,7 @@ public partial class BossSkeleton : Skeleton3D
 		set
 		{
 			health = value;
-			SetHealth(value);
+			if (IsNodeReady()) SetHealth(value);
 		}
 	}
 	float health;
@@ -30,9 +30,9 @@ public partial class BossSkeleton : Skeleton3D
     public override void _Ready()
 	{
 		boneCount = GetBoneCount() - 2;
-		BonePoss = new Vector3[boneCount];
-		BoneDirs = new Vector3[boneCount];
-		BoneLens = new float[boneCount];
+		BonePoss = new Vector3[boneCount+2];
+		BoneDirs = new Vector3[boneCount+2];
+		BoneLens = new float[boneCount+2];
 
 		for(int i = 0; i < boneCount; i++) {
 			int currentBoneIdx = i+2;
@@ -45,7 +45,19 @@ public partial class BossSkeleton : Skeleton3D
 			GD.Print($"Processing bone number {currentBoneIdx} | Name: {GetBoneName(currentBoneIdx)} | Length: {BoneLens[i]}");
 			lenTotal += BoneLens[i];
 		}
+
+		//Hard coded extra bones for a better form
+		BonePoss[boneCount] = GetBoneGlobalPose(2).Origin; // spine
+		BonePoss[boneCount+1] = BonePoss[boneCount];
+
+		BoneDirs[boneCount] = GetBoneGlobalPose(4).Origin - BonePoss[boneCount]; // upperarm.r
+		BoneDirs[boneCount+1] = GetBoneGlobalPose(10).Origin - BonePoss[boneCount]; // upperarm.l
 		
+		BoneLens[boneCount] = BoneDirs[boneCount].Length();  
+		BoneLens[boneCount+1] = BoneDirs[boneCount+1].Length();  
+		lenTotal += BoneLens[boneCount] + BoneLens[boneCount+1];
+		//End of Hard coding
+
 		material.CallDeferred(ShaderMaterial.MethodName.SetShaderParameter, "BoneLens", BoneLens);
 		material.CallDeferred(ShaderMaterial.MethodName.SetShaderParameter, "lenTotal", lenTotal);
 	}
@@ -63,6 +75,17 @@ public partial class BossSkeleton : Skeleton3D
 				BoneDirs[i] = GetBoneGlobalPose(boneParent).Origin - boneTransform.Origin;
 			else BoneDirs[i] = Vector3.Zero;
 		}
+		
+		//Hard coded extra bones for a better form
+		BonePoss[boneCount] = GetBoneGlobalPose(2).Origin; // spine
+		BonePoss[boneCount+1] = BonePoss[boneCount];
+
+		BoneDirs[boneCount] = GetBoneGlobalPose(4).Origin - BonePoss[boneCount]; // upperarm.r
+		BoneDirs[boneCount+1] = GetBoneGlobalPose(10).Origin - BonePoss[boneCount]; // upperarm.l
+		
+		BoneLens[boneCount] = BoneDirs[boneCount].Length();  
+		BoneLens[boneCount+1] = BoneDirs[boneCount+1].Length();  
+		//End of Hard coding
 		
 		material.CallDeferred(ShaderMaterial.MethodName.SetShaderParameter, "BonePoss", BonePoss);
 		material.CallDeferred(ShaderMaterial.MethodName.SetShaderParameter, "BoneDirs", BoneDirs);
